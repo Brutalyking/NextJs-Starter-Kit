@@ -55,7 +55,7 @@ export function SonnerTypes() {
         onClick={() => {
           toast.promise(
             () =>
-              new Promise((resolve) =>
+              new Promise<{ name: string }>((resolve) =>
                 setTimeout(() => resolve({ name: "Event" }), 2000)
               ),
             {

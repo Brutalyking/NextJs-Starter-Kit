@@ -21,7 +21,7 @@ export interface SelectOption {
  * RHFSelect Component
  * A universal select component supporting both single and multi-select modes
  * Automatically integrates with React Hook Form using Controller
- * 
+ *
  * @example
  * ```tsx
  * // Single select
@@ -35,7 +35,7 @@ export interface SelectOption {
  *   placeholder="Select a country"
  *   required
  * />
- * 
+ *
  * // Multi-select with max selection
  * <Field.Select
  *   name="skills"
@@ -103,22 +103,54 @@ export function RHFSelect<T extends FieldValues>({
         const hasError = !!error;
 
         // Theme-aware classes
-        const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+        const bgClass = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
         const borderClass = hasError
           ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
           : getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const textClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-        const placeholderClass = getThemeClasses("text-gray-400", "text-gray-600", currentTheme);
+        const textClass = getThemeClasses(
+          "text-gray-900",
+          "text-gray-100",
+          currentTheme,
+        );
+        const placeholderClass = getThemeClasses(
+          "text-gray-400",
+          "text-gray-600",
+          currentTheme,
+        );
         const ringClass = hasError
-          ? getThemeClasses("focus:ring-red-500", "focus:ring-red-400", currentTheme)
-          : getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-        const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
-        const hoverBgClass = getThemeClasses("hover:bg-gray-100", "hover:bg-gray-900", currentTheme);
-        const selectedBgClass = getThemeClasses("bg-gray-100", "bg-gray-900", currentTheme);
+          ? getThemeClasses(
+              "focus:ring-red-500",
+              "focus:ring-red-400",
+              currentTheme,
+            )
+          : getThemeClasses(
+              "focus:ring-gray-900",
+              "focus:ring-gray-100",
+              currentTheme,
+            );
+        const disabledBgClass = getThemeClasses(
+          "disabled:bg-gray-50",
+          "disabled:bg-gray-900",
+          currentTheme,
+        );
+        const hoverBgClass = getThemeClasses(
+          "hover:bg-gray-100",
+          "hover:bg-gray-900",
+          currentTheme,
+        );
+        const selectedBgClass = getThemeClasses(
+          "bg-gray-100",
+          "bg-gray-900",
+          currentTheme,
+        );
 
         // Handle single select
         const handleSingleSelectChange = (
-          e: React.ChangeEvent<HTMLSelectElement>
+          e: React.ChangeEvent<HTMLSelectElement>,
         ) => {
           const value = e.target.value;
           const selectedValue = value === "" ? undefined : value;
@@ -168,28 +200,36 @@ export function RHFSelect<T extends FieldValues>({
         // Close dropdown when clicking outside
         React.useEffect(() => {
           const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (
+              dropdownRef.current &&
+              !dropdownRef.current.contains(event.target as Node)
+            ) {
               setIsOpen(false);
             }
           };
 
-          document.addEventListener('mousedown', handleClickOutside);
-          return () => document.removeEventListener('mousedown', handleClickOutside);
+          document.addEventListener("mousedown", handleClickOutside);
+          return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
         }, []);
 
         // Get display label for selected value
         const getDisplayLabel = () => {
           if (isMulti) {
-            const selectedValues = Array.isArray(field.value) ? field.value : [];
+            const selectedValues = Array.isArray(field.value)
+              ? field.value
+              : [];
             if (selectedValues.length === 0) return placeholder;
             if (selectedValues.length === 1) {
-              const option = options.find(opt => opt.value === selectedValues[0]);
+              const option = options.find(
+                (opt) => opt.value === selectedValues[0],
+              );
               return option?.label || placeholder;
             }
             return `${selectedValues.length} selected`;
           } else {
             if (!field.value) return placeholder;
-            const option = options.find(opt => opt.value === field.value);
+            const option = options.find((opt) => opt.value === field.value);
             return option?.label || placeholder;
           }
         };
@@ -205,7 +245,10 @@ export function RHFSelect<T extends FieldValues>({
                 onClick={() => !disabled && setIsOpen(!isOpen)}
                 disabled={disabled}
                 className={`w-full px-3 py-2.5 ${bgClass} border ${borderClass} text-left ${textClass} rounded-lg focus:outline-none focus:ring-2 ${ringClass} focus:border-transparent ${disabledBgClass} disabled:cursor-not-allowed disabled:opacity-50 transition-all flex items-center justify-between cursor-pointer ${
-                  !field.value || (Array.isArray(field.value) && field.value.length === 0) ? placeholderClass : ""
+                  !field.value ||
+                  (Array.isArray(field.value) && field.value.length === 0)
+                    ? placeholderClass
+                    : ""
                 }`}
               >
                 <span className="text-sm">{getDisplayLabel()}</span>
@@ -215,13 +258,20 @@ export function RHFSelect<T extends FieldValues>({
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
 
               {/* Dropdown Menu */}
               {isOpen && !disabled && (
-                <div className={`absolute z-50 w-full mt-2 ${bgClass} border ${borderClass} rounded-lg shadow-lg max-h-60 overflow-y-auto`}>
+                <div
+                  className={`absolute z-50 w-full mt-2 ${bgClass} border ${borderClass} rounded-lg shadow-lg max-h-60 overflow-y-auto`}
+                >
                   {options.length === 0 ? (
                     <div className={`px-3 py-2 text-sm ${placeholderClass}`}>
                       No options available
@@ -231,7 +281,8 @@ export function RHFSelect<T extends FieldValues>({
                     <div className="p-1">
                       {options.map((option) => {
                         const selected = isSelected(option.value);
-                        const itemDisabled = option.disabled || (!selected && isMaxReached());
+                        const itemDisabled =
+                          option.disabled || (!selected && isMaxReached());
 
                         return (
                           <button
@@ -263,9 +314,17 @@ export function RHFSelect<T extends FieldValues>({
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
-                                    style={{ position: 'relative', left: '1px' }}
+                                    style={{
+                                      position: "relative",
+                                      left: "1px",
+                                    }}
                                   >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={3}
+                                      d="M5 13l4 4L19 7"
+                                    />
                                   </svg>
                                 )}
                               </div>
@@ -275,8 +334,11 @@ export function RHFSelect<T extends FieldValues>({
                         );
                       })}
                       {maxSelect && (
-                        <div className={`px-3 py-2 text-xs ${getThemeClasses("text-gray-500", "text-gray-400", currentTheme)} border-t ${borderClass} mt-1 pt-2`}>
-                          {Array.isArray(field.value) ? field.value.length : 0} / {maxSelect} selected
+                        <div
+                          className={`px-3 py-2 text-xs ${getThemeClasses("text-gray-500", "text-gray-400", currentTheme)} border-t ${borderClass} mt-1 pt-2`}
+                        >
+                          {Array.isArray(field.value) ? field.value.length : 0}{" "}
+                          / {maxSelect} selected
                         </div>
                       )}
                     </div>
@@ -292,7 +354,9 @@ export function RHFSelect<T extends FieldValues>({
                             type="button"
                             onClick={() => {
                               if (!option.disabled) {
-                                handleSingleSelectChange({ target: { value: option.value } } as any);
+                                handleSingleSelectChange({
+                                  target: { value: option.value },
+                                } as any);
                                 setIsOpen(false);
                               }
                             }}
@@ -311,7 +375,12 @@ export function RHFSelect<T extends FieldValues>({
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                               >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M5 13l4 4L19 7"
+                                />
                               </svg>
                             )}
                           </button>

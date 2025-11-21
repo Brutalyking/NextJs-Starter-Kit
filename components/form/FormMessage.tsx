@@ -9,7 +9,7 @@ import { useFormField } from "./FormItem";
  * Automatically shows error messages from React Hook Form
  * Linked to form control via aria-describedby
  * Supports dark mode
- * 
+ *
  * @example
  * ```tsx
  * <FormMessage />
@@ -19,7 +19,11 @@ interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children?: React.ReactNode;
 }
 
-export function FormMessage({ children, className, ...props }: FormMessageProps) {
+export function FormMessage({
+  children,
+  className,
+  ...props
+}: FormMessageProps) {
   const { formState } = useFormContext();
   const { id, name } = useFormField();
 

@@ -13,7 +13,7 @@ import { useThemeMode, getThemeClasses } from "./useThemeMode";
  * RHFSearchableCheckboxGroup Component
  * A searchable group of checkboxes integrated with React Hook Form
  * Uses Controller internally - form values update automatically
- * 
+ *
  * @example
  * ```tsx
  * <Field.SearchableCheckboxGroup
@@ -78,7 +78,7 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
 
     const query = searchQuery.toLowerCase();
     return options.filter((option) =>
-      option.label.toLowerCase().includes(query)
+      option.label.toLowerCase().includes(query),
     );
   }, [options, searchQuery]);
 
@@ -120,24 +120,50 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
           onChangeSideEffect?.([]);
         };
 
-        const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+        const bgClass = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
         const borderClass = hasError
           ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
           : getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const searchBorderClass = getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const searchTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-        const searchPlaceholderClass = getThemeClasses("placeholder:text-gray-400", "placeholder:text-gray-600", currentTheme);
-        const searchRingClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-        const searchDisabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
-        const actionBarBgClass = getThemeClasses("bg-gray-50", "bg-gray-900", currentTheme);
+        const searchBorderClass = getThemeClasses(
+          "border-gray-200",
+          "border-gray-800",
+          currentTheme,
+        );
+        const searchTextClass = getThemeClasses(
+          "text-gray-900",
+          "text-gray-100",
+          currentTheme,
+        );
+        const searchPlaceholderClass = getThemeClasses(
+          "placeholder:text-gray-400",
+          "placeholder:text-gray-600",
+          currentTheme,
+        );
+        const searchRingClass = getThemeClasses(
+          "focus:ring-gray-900",
+          "focus:ring-gray-100",
+          currentTheme,
+        );
+        const searchDisabledBgClass = getThemeClasses(
+          "disabled:bg-gray-50",
+          "disabled:bg-gray-900",
+          currentTheme,
+        );
+        const actionBarBgClass = getThemeClasses(
+          "bg-gray-50",
+          "bg-gray-900",
+          currentTheme,
+        );
 
         return (
           <FormItem name={name} className={className}>
             {label && <FormLabel required={required}>{label}</FormLabel>}
 
-            <div
-              className={`${bgClass} border ${borderClass} rounded-lg`}
-            >
+            <div className={`${bgClass} border ${borderClass} rounded-lg`}>
               {/* Search bar */}
               <div className={`p-3 border-b ${searchBorderClass}`}>
                 <input
@@ -151,7 +177,9 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
               </div>
 
               {/* Action buttons */}
-              <div className={`flex gap-2 p-2 border-b ${searchBorderClass} ${actionBarBgClass}`}>
+              <div
+                className={`flex gap-2 p-2 border-b ${searchBorderClass} ${actionBarBgClass}`}
+              >
                 <button
                   type="button"
                   onClick={handleSelectAll}
@@ -169,7 +197,9 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
                   Clear All
                 </button>
                 <div className="flex-1" />
-                <span className={`text-xs ${getThemeClasses("text-gray-500", "text-gray-400", currentTheme)} self-center`}>
+                <span
+                  className={`text-xs ${getThemeClasses("text-gray-500", "text-gray-400", currentTheme)} self-center`}
+                >
                   {selectedValues.length} selected
                 </span>
               </div>
@@ -180,7 +210,9 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
                 style={{ maxHeight }}
               >
                 {filteredOptions.length === 0 ? (
-                  <div className={`${getThemeClasses("text-gray-400", "text-gray-600", currentTheme)} text-sm text-center py-4`}>
+                  <div
+                    className={`${getThemeClasses("text-gray-400", "text-gray-600", currentTheme)} text-sm text-center py-4`}
+                  >
                     {searchQuery ? "No results found" : "No options available"}
                   </div>
                 ) : (
@@ -188,15 +220,51 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
                     const isChecked = selectedValues.includes(option.value);
                     const isDisabled = disabled || option.disabled;
 
-                    const hoverBgClass = getThemeClasses("hover:bg-gray-50", "hover:bg-gray-900", currentTheme);
-                    const checkboxBgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-                    const checkboxBorderClass = getThemeClasses("border-gray-300", "border-gray-700", currentTheme);
-                    const ringClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-                    const ringOffsetClass = getThemeClasses("focus:ring-offset-white", "focus:ring-offset-gray-950", currentTheme);
-                    const checkedBgClass = getThemeClasses("checked:bg-gray-900", "checked:bg-white", currentTheme);
-                    const checkedBorderClass = getThemeClasses("checked:border-gray-900", "checked:border-white", currentTheme);
-                    const checkIconClass = getThemeClasses("text-white", "text-gray-900", currentTheme);
-                    const labelTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
+                    const hoverBgClass = getThemeClasses(
+                      "hover:bg-gray-50",
+                      "hover:bg-gray-900",
+                      currentTheme,
+                    );
+                    const checkboxBgClass = getThemeClasses(
+                      "bg-white",
+                      "bg-gray-950",
+                      currentTheme,
+                    );
+                    const checkboxBorderClass = getThemeClasses(
+                      "border-gray-300",
+                      "border-gray-700",
+                      currentTheme,
+                    );
+                    const ringClass = getThemeClasses(
+                      "focus:ring-gray-900",
+                      "focus:ring-gray-100",
+                      currentTheme,
+                    );
+                    const ringOffsetClass = getThemeClasses(
+                      "focus:ring-offset-white",
+                      "focus:ring-offset-gray-950",
+                      currentTheme,
+                    );
+                    const checkedBgClass = getThemeClasses(
+                      "checked:bg-gray-900",
+                      "checked:bg-white",
+                      currentTheme,
+                    );
+                    const checkedBorderClass = getThemeClasses(
+                      "checked:border-gray-900",
+                      "checked:border-white",
+                      currentTheme,
+                    );
+                    const checkIconClass = getThemeClasses(
+                      "text-white",
+                      "text-gray-900",
+                      currentTheme,
+                    );
+                    const labelTextClass = getThemeClasses(
+                      "text-gray-900",
+                      "text-gray-100",
+                      currentTheme,
+                    );
 
                     return (
                       <div

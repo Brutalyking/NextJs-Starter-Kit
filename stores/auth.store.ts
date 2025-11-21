@@ -46,19 +46,19 @@ const initialState: AuthState = {
 /**
  * Authentication store with persistent storage
  * Manages user authentication state across the application
- * 
+ *
  * @example
  * ```tsx
  * import { useAuthStore } from '@/stores/auth.store';
- * 
+ *
  * function Component() {
  *   const { user, login, logout } = useAuthStore();
- *   
+ *
  *   const handleLogin = async () => {
  *     const userData = await apiLogin();
  *     login(userData);
  *   };
- *   
+ *
  *   return <div>{user?.name}</div>;
  * }
  * ```
@@ -120,8 +120,8 @@ export const useAuthStore = create<AuthStore>()(
         isAuthenticated: state.isAuthenticated,
         // Don't persist isLoading
       }),
-    }
-  )
+    },
+  ),
 );
 
 /* ----------------------------------------------------
@@ -137,7 +137,8 @@ export const selectUser = (state: AuthStore) => state.user;
 /**
  * Select only the authentication status
  */
-export const selectIsAuthenticated = (state: AuthStore) => state.isAuthenticated;
+export const selectIsAuthenticated = (state: AuthStore) =>
+  state.isAuthenticated;
 
 /**
  * Select only the loading state

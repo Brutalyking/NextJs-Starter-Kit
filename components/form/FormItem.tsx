@@ -12,7 +12,7 @@ type FormFieldContextValue = {
 };
 
 const FormFieldContext = React.createContext<FormFieldContextValue | null>(
-  null
+  null,
 );
 
 /**
@@ -30,7 +30,7 @@ export const useFormField = () => {
 /**
  * FormItem component that provides context for a single form field
  * Automatically generates unique IDs for ARIA attributes
- * 
+ *
  * @example
  * ```tsx
  * <FormItem name="email">
@@ -48,9 +48,14 @@ interface FormItemProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export function FormItem({ name, children, className, ...props }: FormItemProps) {
+export function FormItem({
+  name,
+  children,
+  className,
+  ...props
+}: FormItemProps) {
   const id = React.useId();
-  
+
   return (
     <FormFieldContext.Provider value={{ name, id }}>
       <div className={`space-y-2 ${className || ""}`} {...props}>

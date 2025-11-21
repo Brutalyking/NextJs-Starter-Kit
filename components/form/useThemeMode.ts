@@ -40,7 +40,7 @@ export function useThemeMode(forcedTheme?: "light" | "dark"): "light" | "dark" {
 export function getThemeClasses(
   lightClass: string,
   darkClass: string,
-  currentTheme: "light" | "dark"
+  currentTheme: "light" | "dark",
 ): string {
   return currentTheme === "dark" ? darkClass : lightClass;
 }

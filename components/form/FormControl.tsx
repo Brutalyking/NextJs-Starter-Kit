@@ -8,7 +8,7 @@ import { useFormField } from "./FormItem";
  * FormControl component that wraps form inputs
  * Automatically adds ARIA attributes for accessibility
  * Connects input with error messages and descriptions
- * 
+ *
  * @example
  * ```tsx
  * <FormControl>

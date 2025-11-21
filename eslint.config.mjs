@@ -22,7 +22,7 @@ const eslintConfig = defineConfig([
       // Turn off the base no-unused-vars rule as it can report incorrect errors
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      
+
       // Enable unused-imports rules
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [

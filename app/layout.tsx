@@ -34,12 +34,12 @@ export default function RootLayout({
           <ReactQueryProvider>
             {children}
             <Toaster
-            position="top-right"
-            duration={3000}
-            richColors
-            closeButton
-            visibleToasts={5}
-          />
+              position="top-right"
+              duration={3000}
+              richColors
+              closeButton
+              visibleToasts={5}
+            />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

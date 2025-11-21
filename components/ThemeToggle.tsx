@@ -2,12 +2,17 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import SlideThemeSwitch from "./ui/slide-theme-switcher";
+import ClickThemeToggleSmall from "./ui/click-theme-switcher-small";
 
 /**
  * Theme Toggle Component
  * Allows users to switch between light and dark modes
  */
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  variant?: "slide" | "click-small";
+}
+export function ThemeToggle({ variant = "click-small" }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -19,44 +24,21 @@ export function ThemeToggle() {
   if (!mounted) {
     return null;
   }
-
-  return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="fixed top-4 right-4 p-2 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-400 dark:hover:border-gray-600 transition-colors cursor-pointer"
-      aria-label="Toggle theme"
-    >
-      {theme === "dark" ? (
-        // Sun icon for light mode
-        <svg
-          className="w-5 h-5 text-gray-900 dark:text-gray-100"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
-      ) : (
-        // Moon icon for dark mode
-        <svg
-          className="w-5 h-5 text-gray-900 dark:text-gray-100"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-          />
-        </svg>
-      )}
-    </button>
-  );
+  switch (variant) {
+    case "click-small":
+      return (
+        <ClickThemeToggleSmall
+          checked={theme === "dark"}
+          onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+        />
+      );
+    case "slide":
+      return (
+        <SlideThemeSwitch
+          checked={theme === "dark"}
+          onToggle={() => setTheme(theme === "dark" ? "light" : "dark")}
+        />
+      );
+    default:
+  }
 }

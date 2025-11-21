@@ -1,6 +1,7 @@
 # Axios API Client Documentation
 
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [API Clients Overview](#api-clients-overview)
 3. [Setup & Configuration](#setup--configuration)
@@ -18,12 +19,14 @@
 ## Introduction
 
 This project uses Axios for HTTP requests with two pre-configured API clients:
+
 - **Internal API** - For calls to your Next.js backend API routes
 - **External API** - For calls to third-party services or external backends
 
 Both clients include request/response interceptors, error handling, and authentication support.
 
 ### Key Features
+
 - ✅ **Dual API clients** - Internal and External separated
 - ✅ **Automatic error extraction** - Consistent error messages
 - ✅ **Request/Response interceptors** - Add auth tokens, logging, etc.
@@ -36,6 +39,7 @@ Both clients include request/response interceptors, error handling, and authenti
 ## API Clients Overview
 
 ### File Structure
+
 ```
 lib/
 ├── http/
@@ -47,13 +51,13 @@ lib/
 
 ### When to Use Each Client
 
-| Scenario | Use | Example |
-|----------|-----|---------|
-| Next.js API route | `internalAPI` | `/api/users`, `/api/posts` |
-| Your backend server | `externalAPI` | `https://api.yourdomain.com` |
-| Third-party API | `externalAPI` | `https://api.stripe.com` |
-| Database queries | `internalAPI` | Via API routes |
-| Authentication | Both | Internal for session, External for OAuth |
+| Scenario            | Use           | Example                                  |
+| ------------------- | ------------- | ---------------------------------------- |
+| Next.js API route   | `internalAPI` | `/api/users`, `/api/posts`               |
+| Your backend server | `externalAPI` | `https://api.yourdomain.com`             |
+| Third-party API     | `externalAPI` | `https://api.stripe.com`                 |
+| Database queries    | `internalAPI` | Via API routes                           |
+| Authentication      | Both          | Internal for session, External for OAuth |
 
 ---
 
@@ -98,9 +102,9 @@ The Internal API client is used for calling your Next.js API routes (located in 
 import axios, { AxiosInstance } from "axios";
 
 const internalAPI: AxiosInstance = axios.create({
-  baseURL: "/api",              // Next.js API routes
-  withCredentials: true,         // Send cookies
-  timeout: 15000,                // 15 seconds
+  baseURL: "/api", // Next.js API routes
+  withCredentials: true, // Send cookies
+  timeout: 15000, // 15 seconds
   headers: {
     "Content-Type": "application/json",
   },
@@ -109,12 +113,12 @@ const internalAPI: AxiosInstance = axios.create({
 
 ### Key Settings
 
-| Setting | Value | Purpose |
-|---------|-------|---------|
-| `baseURL` | `/api` | Prefix for all requests |
-| `withCredentials` | `true` | Include cookies in requests |
-| `timeout` | `15000` | Cancel after 15 seconds |
-| `headers` | `application/json` | Default content type |
+| Setting           | Value              | Purpose                     |
+| ----------------- | ------------------ | --------------------------- |
+| `baseURL`         | `/api`             | Prefix for all requests     |
+| `withCredentials` | `true`             | Include cookies in requests |
+| `timeout`         | `15000`            | Cancel after 15 seconds     |
+| `headers`         | `application/json` | Default content type        |
 
 ### Request Interceptor
 
@@ -127,16 +131,16 @@ internalAPI.interceptors.request.use(
     // - Add auth tokens
     // - Log requests
     // - Modify headers
-    
+
     // Example: Add authorization header
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 ```
 
@@ -146,11 +150,11 @@ Runs **after** every response is received:
 
 ```typescript
 internalAPI.interceptors.response.use(
-  (res) => res,  // Pass through successful responses
+  (res) => res, // Pass through successful responses
   (error: AxiosError) => {
     // Extract meaningful error message
     return Promise.reject(extractErrorMessage(error));
-  }
+  },
 );
 ```
 
@@ -204,11 +208,11 @@ const externalAPI: AxiosInstance = axios.create({
 
 ### Key Differences from Internal API
 
-| Feature | Internal API | External API |
-|---------|--------------|--------------|
-| Base URL | `/api` (relative) | Environment variable |
-| Use Case | Next.js routes | External services |
-| Full URLs | Not needed | Supported |
+| Feature   | Internal API      | External API         |
+| --------- | ----------------- | -------------------- |
+| Base URL  | `/api` (relative) | Environment variable |
+| Use Case  | Next.js routes    | External services    |
+| Full URLs | Not needed        | Supported            |
 
 ### Usage with Base URL
 
@@ -230,17 +234,24 @@ If you want to use full URLs (remove or don't set `baseURL`):
 
 ```typescript
 // Third-party API calls
-const weather = await externalAPI.get("https://api.openweather.org/data/2.5/weather", {
-  params: { q: "London", appid: process.env.NEXT_PUBLIC_WEATHER_API_KEY },
-});
-
-const stripeCustomer = await externalAPI.post("https://api.stripe.com/v1/customers", {
-  email: "customer@example.com",
-}, {
-  headers: {
-    Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+const weather = await externalAPI.get(
+  "https://api.openweather.org/data/2.5/weather",
+  {
+    params: { q: "London", appid: process.env.NEXT_PUBLIC_WEATHER_API_KEY },
   },
-});
+);
+
+const stripeCustomer = await externalAPI.post(
+  "https://api.stripe.com/v1/customers",
+  {
+    email: "customer@example.com",
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+    },
+  },
+);
 ```
 
 ---
@@ -261,22 +272,22 @@ export function extractErrorMessage(error: AxiosError): string {
   if (error.response?.data?.message) {
     return error.response.data.message;
   }
-  
+
   // 2. Check for standard error message
   if (error.response?.data?.error) {
     return error.response.data.error;
   }
-  
+
   // 3. Use HTTP status text
   if (error.response?.statusText) {
     return error.response.statusText;
   }
-  
+
   // 4. Network or timeout error
   if (error.message) {
     return error.message;
   }
-  
+
   // 5. Fallback
   return "An unexpected error occurred";
 }
@@ -305,21 +316,21 @@ try {
 } catch (error) {
   // Error is already a string (extracted message)
   console.error(error); // "User not found"
-  toast.error(error);   // Show to user
+  toast.error(error); // Show to user
 }
 ```
 
 ### Error Types
 
-| Error Type | Status Code | Example |
-|------------|-------------|---------|
-| Validation Error | 400 | "Email is required" |
-| Unauthorized | 401 | "Please log in" |
-| Forbidden | 403 | "Access denied" |
-| Not Found | 404 | "User not found" |
-| Server Error | 500 | "Internal server error" |
-| Timeout | - | "Request timeout" |
-| Network Error | - | "Network error" |
+| Error Type       | Status Code | Example                 |
+| ---------------- | ----------- | ----------------------- |
+| Validation Error | 400         | "Email is required"     |
+| Unauthorized     | 401         | "Please log in"         |
+| Forbidden        | 403         | "Access denied"         |
+| Not Found        | 404         | "User not found"        |
+| Server Error     | 500         | "Internal server error" |
+| Timeout          | -           | "Request timeout"       |
+| Network Error    | -           | "Network error"         |
 
 ---
 
@@ -374,7 +385,7 @@ const upload = await internalAPI.post("/upload", formData, {
 
 // POST with custom config
 const response = await internalAPI.post("/action", data, {
-  timeout: 30000,  // Override default timeout
+  timeout: 30000, // Override default timeout
   headers: {
     "X-API-Key": "your-api-key",
   },
@@ -392,7 +403,7 @@ const updatedUser = await internalAPI.put("/users/123", {
 
 // Partial update (PATCH)
 const partial = await internalAPI.patch("/users/123", {
-  name: "New Name",  // Only update name
+  name: "New Name", // Only update name
 });
 ```
 
@@ -436,7 +447,7 @@ async function login(email: string, password: string) {
       email,
       password,
     });
-    
+
     // Cookie is automatically stored by browser
     return response.data;
   } catch (error) {
@@ -485,10 +496,10 @@ async function login(email: string, password: string) {
     email,
     password,
   });
-  
+
   const { token } = response.data;
   localStorage.setItem("token", token);
-  
+
   return response.data;
 }
 ```
@@ -505,7 +516,7 @@ internalAPI.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 ```
 
@@ -522,7 +533,7 @@ internalAPI.interceptors.response.use(
       window.location.href = "/login";
     }
     return Promise.reject(extractErrorMessage(error));
-  }
+  },
 );
 ```
 
@@ -694,15 +705,15 @@ export async function handleApiCall<T>(
     errorMessage?: string;
     onSuccess?: (data: T) => void;
     onError?: (error: string) => void;
-  }
+  },
 ): Promise<T | null> {
   try {
     const data = await apiCall();
-    
+
     if (options?.successMessage) {
       toast.success(options.successMessage);
     }
-    
+
     options?.onSuccess?.(data);
     return data;
   } catch (error) {
@@ -717,14 +728,11 @@ export async function handleApiCall<T>(
 **Usage:**
 
 ```typescript
-const user = await handleApiCall(
-  () => userService.create(formData),
-  {
-    successMessage: "User created successfully!",
-    errorMessage: "Failed to create user",
-    onSuccess: () => router.push("/users"),
-  }
-);
+const user = await handleApiCall(() => userService.create(formData), {
+  successMessage: "User created successfully!",
+  errorMessage: "Failed to create user",
+  onSuccess: () => router.push("/users"),
+});
 ```
 
 ### 6. Add Request/Response Logging (Development Only)
@@ -733,7 +741,10 @@ const user = await handleApiCall(
 // In internal-api.ts
 if (process.env.NODE_ENV === "development") {
   internalAPI.interceptors.request.use((config) => {
-    console.log(`🔵 ${config.method?.toUpperCase()} ${config.url}`, config.data);
+    console.log(
+      `🔵 ${config.method?.toUpperCase()} ${config.url}`,
+      config.data,
+    );
     return config;
   });
 
@@ -858,7 +869,9 @@ async function uploadFile(file: File, onProgress?: (progress: number) => void) {
     },
     onUploadProgress: (progressEvent) => {
       if (progressEvent.total) {
-        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        const progress = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total,
+        );
         onProgress?.(progress);
       }
     },
@@ -934,7 +947,7 @@ function PostList() {
   return (
     <div>
       {posts.map(post => <PostCard key={post.id} post={post} />)}
-      
+
       <Pagination
         currentPage={page}
         totalPages={totalPages}
@@ -971,14 +984,14 @@ async function loadDashboard() {
 async function fetchWithRetry<T>(
   apiCall: () => Promise<T>,
   maxRetries: number = 3,
-  delay: number = 1000
+  delay: number = 1000,
 ): Promise<T> {
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await apiCall();
     } catch (error) {
       if (i === maxRetries - 1) throw error;
-      await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+      await new Promise((resolve) => setTimeout(resolve, delay * (i + 1)));
     }
   }
   throw new Error("Max retries reached");
@@ -997,6 +1010,7 @@ const data = await fetchWithRetry(() => internalAPI.get("/flaky-endpoint"));
 **Problem:** Getting CORS errors when calling external API.
 
 **Solution:**
+
 1. Add CORS headers to your backend
 2. Use a proxy through Next.js API routes
 3. Set up Next.js rewrites in `next.config.js`
@@ -1007,8 +1021,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://your-backend.com/:path*',
+        source: "/api/:path*",
+        destination: "https://your-backend.com/:path*",
       },
     ];
   },
@@ -1020,16 +1034,19 @@ module.exports = {
 **Problem:** Cookies aren't included in requests.
 
 **Solution:**
+
 1. Ensure `withCredentials: true` is set
 2. Backend must send `Access-Control-Allow-Credentials: true`
 3. Backend must specify exact origin (not `*`)
 
 ```typescript
 // Backend (Express example)
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  }),
+);
 ```
 
 ### Issue: Request Timeout
@@ -1049,6 +1066,7 @@ const data = await internalAPI.get("/slow-endpoint", {
 **Problem:** Getting errors with large file uploads.
 
 **Solution:**
+
 1. Increase timeout
 2. Use `multipart/form-data`
 3. Check backend size limits
@@ -1175,7 +1193,7 @@ class RequestQueue {
 
   private async process() {
     if (this.running || this.queue.length === 0) return;
-    
+
     this.running = true;
     const request = this.queue.shift()!;
     await request();
@@ -1226,7 +1244,10 @@ await internalAPI.post("/users", cleanData);
 
 ```typescript
 // Enforce HTTPS
-if (process.env.NODE_ENV === "production" && !window.location.protocol === "https:") {
+if (
+  process.env.NODE_ENV === "production" &&
+  !window.location.protocol === "https:"
+) {
   window.location.href = "https:" + window.location.href.substring(5);
 }
 ```

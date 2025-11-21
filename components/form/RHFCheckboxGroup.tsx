@@ -20,7 +20,7 @@ export interface CheckboxOption {
  * RHFCheckboxGroup Component
  * A group of checkboxes integrated with React Hook Form
  * Uses Controller internally - form values update automatically
- * 
+ *
  * @example
  * ```tsx
  * <Field.CheckboxGroup
@@ -94,11 +94,19 @@ export function RHFCheckboxGroup<T extends FieldValues>({
           onChangeSideEffect?.(newValues);
         };
 
-        const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+        const bgClass = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
         const borderClass = hasError
           ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
           : getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const emptyTextClass = getThemeClasses("text-gray-400", "text-gray-600", currentTheme);
+        const emptyTextClass = getThemeClasses(
+          "text-gray-400",
+          "text-gray-600",
+          currentTheme,
+        );
 
         return (
           <FormItem name={name} className={className}>
@@ -108,29 +116,74 @@ export function RHFCheckboxGroup<T extends FieldValues>({
               className={`space-y-3 p-4 ${bgClass} border ${borderClass} rounded-lg`}
             >
               {options.length === 0 ? (
-                <div className={`${emptyTextClass} text-sm`}>No options available</div>
+                <div className={`${emptyTextClass} text-sm`}>
+                  No options available
+                </div>
               ) : (
                 options.map((option) => {
                   const isChecked = selectedValues.includes(option.value);
                   const isDisabled = disabled || option.disabled;
 
-                  const checkboxBgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+                  const checkboxBgClass = getThemeClasses(
+                    "bg-white",
+                    "bg-gray-950",
+                    currentTheme,
+                  );
                   const checkboxBorderClass = isDisabled
-                    ? getThemeClasses("border-gray-200", "border-gray-800", currentTheme)
-                    : getThemeClasses("border-gray-300", "border-gray-700", currentTheme);
-                  const checkedBgClass = getThemeClasses("checked:bg-gray-900", "checked:bg-white", currentTheme);
-                  const checkedBorderClass = getThemeClasses("checked:border-gray-900", "checked:border-white", currentTheme);
-                  const ringClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
+                    ? getThemeClasses(
+                        "border-gray-200",
+                        "border-gray-800",
+                        currentTheme,
+                      )
+                    : getThemeClasses(
+                        "border-gray-300",
+                        "border-gray-700",
+                        currentTheme,
+                      );
+                  const checkedBgClass = getThemeClasses(
+                    "checked:bg-gray-900",
+                    "checked:bg-white",
+                    currentTheme,
+                  );
+                  const checkedBorderClass = getThemeClasses(
+                    "checked:border-gray-900",
+                    "checked:border-white",
+                    currentTheme,
+                  );
+                  const ringClass = getThemeClasses(
+                    "focus:ring-gray-900",
+                    "focus:ring-gray-100",
+                    currentTheme,
+                  );
                   const hoverBorderClass = !isDisabled
-                    ? getThemeClasses("hover:border-gray-400", "hover:border-gray-600", currentTheme)
+                    ? getThemeClasses(
+                        "hover:border-gray-400",
+                        "hover:border-gray-600",
+                        currentTheme,
+                      )
                     : "";
                   const checkIconClass = isDisabled
-                    ? getThemeClasses("text-gray-400", "text-gray-600", currentTheme)
-                    : getThemeClasses("text-white", "text-gray-900", currentTheme);
-                  const labelTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
+                    ? getThemeClasses(
+                        "text-gray-400",
+                        "text-gray-600",
+                        currentTheme,
+                      )
+                    : getThemeClasses(
+                        "text-white",
+                        "text-gray-900",
+                        currentTheme,
+                      );
+                  const labelTextClass = getThemeClasses(
+                    "text-gray-900",
+                    "text-gray-100",
+                    currentTheme,
+                  );
 
                   return (
-                    <div key={option.value} className="flex items-center space-x-3">
+                    <div
+                      key={option.value}
+                      className="flex items-center space-x-3"
+                    >
                       <div className="relative flex items-center">
                         <input
                           type="checkbox"
@@ -142,7 +195,7 @@ export function RHFCheckboxGroup<T extends FieldValues>({
                         />
                         <svg
                           className={`absolute w-3 h-3 pointer-events-none ${checkIconClass} opacity-0 peer-checked:opacity-100 transition-opacity`}
-                          style={{ left: '2px' }}
+                          style={{ left: "2px" }}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -158,9 +211,7 @@ export function RHFCheckboxGroup<T extends FieldValues>({
                       <label
                         htmlFor={`${name}-${option.value}`}
                         className={`text-sm font-medium leading-none cursor-pointer select-none ${labelTextClass} ${
-                          isDisabled
-                            ? "opacity-50 cursor-not-allowed"
-                            : ""
+                          isDisabled ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                       >
                         {option.label}

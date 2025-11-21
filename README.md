@@ -9,6 +9,31 @@ A comprehensive, production-ready Next.js 16 starter template with TypeScript, f
 
 ---
 
+## 🧹 Fresh Start - Cleanup Script
+
+If you want to start with a clean slate, delete all documentation and examples:
+
+```bash
+npm run cleanup
+```
+
+Or directly with bash:
+
+```bash
+bash scripts/cleanup.sh
+```
+
+This script will:
+
+- ❌ Delete `/docs` directory
+- ❌ Delete `/examples` directory
+- ✏️ Reset `app/page.tsx` to a minimal home page
+- ✏️ Reset `README.md` to a basic template
+
+**Note:** This action is tracked by Git, so you can undo with `git checkout .`
+
+---
+
 ## 📋 Table of Contents
 
 - [Features](#-features)
@@ -26,12 +51,15 @@ A comprehensive, production-ready Next.js 16 starter template with TypeScript, f
 ## ✨ Features
 
 ### 🎨 **UI & Theming**
+
 - ✅ **Dark Mode Support** - Seamless theme switching with `next-themes`
 - ✅ **Tailwind CSS v4** - Modern utility-first styling
 - ✅ **shadcn/ui Integration** - Beautiful, accessible components
 - ✅ **Responsive Design** - Mobile-first approach
+- ✅ **Theme Toggle Component** - Multiple variants (slide & click-small)
 
 ### 📝 **Form System**
+
 - ✅ **React Hook Form** - Performant form validation
 - ✅ **13 Pre-built Components** - Input, Select, Upload, Checkbox, Radio, OTP, etc.
 - ✅ **Shadcn-style OTP** - Individual character input boxes
@@ -39,19 +67,34 @@ A comprehensive, production-ready Next.js 16 starter template with TypeScript, f
 - ✅ **Password Toggle** - Built-in visibility control
 - ✅ **Theme Support** - All components support light/dark themes
 
+### 🎯 **Modal/Dialog System**
+
+- ✅ **useDialog Hook** - Complete dialog state management (recommended)
+- ✅ **DialogCreator Component** - Direct component usage for simple dialogs
+- ✅ **Per-Button Loading** - Individual loading states for each button
+- ✅ **Async Handlers** - Automatic loading during async operations
+- ✅ **Three Button Types** - Cancel, Middle (optional), and Action buttons
+- ✅ **Button Variants** - Multiple styles (default, destructive, outline, secondary, ghost)
+- ✅ **Size Options** - Small, Medium, Large, Extra Large dialogs
+- ✅ **Form Support** - Built-in custom form integration
+- ✅ **TypeScript Support** - Full type safety with complete interfaces
+
 ### 🗄️ **State Management**
+
 - ✅ **Zustand** - Lightweight state management
 - ✅ **React Query (TanStack)** - Server state & caching
 - ✅ **Persistent Storage** - Auto-save to localStorage
 - ✅ **Pre-configured Stores** - Auth & UI stores ready to use
 
 ### 🌐 **API Integration**
+
 - ✅ **Axios Clients** - Separate internal & external API clients
 - ✅ **Request/Response Interceptors** - Auto-error handling
 - ✅ **Cookie Support** - Session management ready
 - ✅ **TypeScript Types** - Full type safety
 
 ### 🎯 **Developer Experience**
+
 - ✅ **TypeScript** - Full type safety throughout
 - ✅ **Path Constants** - Centralized route management
 - ✅ **Toast Notifications** - Beautiful Sonner toasts
@@ -62,21 +105,21 @@ A comprehensive, production-ready Next.js 16 starter template with TypeScript, f
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose | Version |
-|------------|---------|---------|
-| **Next.js** | React framework | 16.0.3 |
-| **React** | UI library | 19.2.0 |
-| **TypeScript** | Type safety | 5.0 |
-| **Tailwind CSS** | Styling | 4.0 |
-| **React Hook Form** | Form management | 7.66.1 |
-| **Zustand** | State management | 5.0.8 |
-| **TanStack Query** | Server state | 5.90.10 |
-| **Axios** | HTTP client | 1.13.2 |
-| **Zod** | Schema validation | 4.1.12 |
-| **Sonner** | Toast notifications | 2.0.7 |
-| **next-themes** | Theme management | 0.4.6 |
-| **shadcn/ui** | Component library | Latest |
-| **Lucide React** | Icons | 0.554.0 |
+| Technology          | Purpose             | Version |
+| ------------------- | ------------------- | ------- |
+| **Next.js**         | React framework     | 16.0.3  |
+| **React**           | UI library          | 19.2.0  |
+| **TypeScript**      | Type safety         | 5.0     |
+| **Tailwind CSS**    | Styling             | 4.0     |
+| **React Hook Form** | Form management     | 7.66.1  |
+| **Zustand**         | State management    | 5.0.8   |
+| **TanStack Query**  | Server state        | 5.90.10 |
+| **Axios**           | HTTP client         | 1.13.2  |
+| **Zod**             | Schema validation   | 4.1.12  |
+| **Sonner**          | Toast notifications | 2.0.7   |
+| **next-themes**     | Theme management    | 0.4.6   |
+| **shadcn/ui**       | Component library   | Latest  |
+| **Lucide React**    | Icons               | 0.554.0 |
 
 ---
 
@@ -203,6 +246,7 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 │
 └── docs/                        # Comprehensive documentation
     ├── FORM_SYSTEM_DOCUMENTATION.md
+    ├── MODAL_DIALOG_DOCUMENTATION.md
     ├── API_DOCUMENTATION.md
     └── STATE_AND_UTILITIES.md
 ```
@@ -213,15 +257,17 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 
 Comprehensive guides for all features:
 
-| Documentation | Description | Link |
-|---------------|-------------|------|
-| **Form System** | Complete guide to all 13 form components, input types, validation, theming | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md) |
-| **API & Axios** | HTTP clients setup, interceptors, error handling, authentication | [View Docs](./docs/API_DOCUMENTATION.md) |
-| **State & Utilities** | Zustand stores, React Query, Toasts, Path constants | [View Docs](./docs/STATE_AND_UTILITIES.md) |
+| Documentation         | Description                                                                | Link                                              |
+| --------------------- | -------------------------------------------------------------------------- | ------------------------------------------------- |
+| **Form System**       | Complete guide to all 13 form components, input types, validation, theming | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md)  |
+| **Modal/Dialog**      | Dialog system with per-button loading, async handlers, and customization   | [View Docs](./docs/MODAL_DIALOG_DOCUMENTATION.md) |
+| **API & Axios**       | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)          |
+| **State & Utilities** | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)        |
 
 ### Quick Links
 
 - **🎨 Form Components** - [Form System Documentation](./docs/FORM_SYSTEM_DOCUMENTATION.md)
+- **🎯 Modal/Dialog** - [Modal & Dialog Documentation](./docs/MODAL_DIALOG_DOCUMENTATION.md)
 - **🌐 API Calls** - [API Documentation](./docs/API_DOCUMENTATION.md)
 - **🗄️ State Management** - [State & Utilities Documentation](./docs/STATE_AND_UTILITIES.md)
 
@@ -241,7 +287,6 @@ Visit the **[/example](http://localhost:3000/example)** page to see:
   - Select dropdowns (single & multi-select)
   - Checkboxes & radio groups
   - Date & time pickers
-  
 - ✅ **Toast Notifications**
   - Success, error, info, warning toasts
   - Promise-based toasts for async operations
@@ -256,18 +301,18 @@ Visit the **[/example](http://localhost:3000/example)** page to see:
 #### Authentication with Zustand
 
 ```tsx
-import { useAuthStore } from '@/stores';
-import { internalAPI } from '@/lib/http/internal-api';
-import { toast } from 'sonner';
+import { useAuthStore } from "@/stores";
+import { internalAPI } from "@/lib/http/internal-api";
+import { toast } from "sonner";
 
 function LoginForm() {
   const { login } = useAuthStore();
 
   async function handleLogin(data: LoginDto) {
     try {
-      const response = await internalAPI.post('/auth/login', data);
+      const response = await internalAPI.post("/auth/login", data);
       login(response.data.user);
-      toast.success('Login successful!');
+      toast.success("Login successful!");
     } catch (error) {
       toast.error(error);
     }
@@ -280,30 +325,36 @@ function LoginForm() {
 #### Data Fetching with React Query
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import { internalAPI } from '@/lib/http/internal-api';
+import { useQuery } from "@tanstack/react-query";
+import { internalAPI } from "@/lib/http/internal-api";
 
 function UserList() {
   const { data: users, isLoading } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
-      const response = await internalAPI.get('/users');
+      const response = await internalAPI.get("/users");
       return response.data;
     },
   });
 
   if (isLoading) return <div>Loading...</div>;
-  return <div>{users.map(user => <UserCard user={user} />)}</div>;
+  return (
+    <div>
+      {users.map((user) => (
+        <UserCard user={user} />
+      ))}
+    </div>
+  );
 }
 ```
 
 #### Form with Validation
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { RHFUniversalInput } from '@/components/form';
-import { loginSchema } from '@/schema/auth.schema';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { RHFUniversalInput } from "@/components/form";
+import { loginSchema } from "@/schema/auth.schema";
 
 function LoginForm() {
   const { control, handleSubmit } = useForm({
@@ -332,6 +383,56 @@ function LoginForm() {
 }
 ```
 
+#### Modal/Dialog Management
+
+```tsx
+import { useDialog } from "@/hooks/useDialog";
+import { toast } from "sonner";
+
+function UserManagement() {
+  const deleteDialog = useDialog({
+    title: "Delete User",
+    subtitle: "This action cannot be undone.",
+    size: "md",
+    cancelButton: {
+      label: "Cancel",
+    },
+    actionButton: {
+      label: "Delete",
+      variant: "destructive",
+      onClick: async () => {
+        try {
+          await internalAPI.delete(`/users/${userId}`);
+          toast.success("User deleted successfully");
+        } catch (error) {
+          toast.error("Failed to delete user");
+        }
+      },
+    },
+  });
+
+  return (
+    <div>
+      <button onClick={deleteDialog.openDialog} className="text-red-600">
+        Delete User
+      </button>
+      {deleteDialog.dialog}
+    </div>
+  );
+}
+```
+
+**Features:**
+
+- ✅ Automatic loading state during async operations
+- ✅ Per-button loading control
+- ✅ Type-safe dialog configuration
+- ✅ Easy to override config when opening
+- ✅ Built-in form support
+- ✅ Multiple button variants
+
+**[→ Full Modal Documentation](./docs/MODAL_DIALOG_DOCUMENTATION.md)**
+
 ---
 
 ## 👨‍💻 For Developers
@@ -339,6 +440,7 @@ function LoginForm() {
 ### Development Workflow
 
 1. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -386,11 +488,11 @@ export default function DashboardPage() {
 
 ```typescript
 // lib/services/post.service.ts
-import { internalAPI } from '@/lib/http/internal-api';
+import { internalAPI } from "@/lib/http/internal-api";
 
 export const postService = {
   async getAll() {
-    const response = await internalAPI.get('/posts');
+    const response = await internalAPI.get("/posts");
     return response.data;
   },
   // Add more methods...
@@ -401,7 +503,7 @@ export const postService = {
 
 ```typescript
 // stores/post.store.ts
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export const usePostStore = create((set) => ({
   posts: [],
@@ -418,6 +520,110 @@ export const APP_PATHS = {
   DASHBOARD: "/dashboard",
   SETTINGS: "/settings",
 };
+```
+
+---
+
+## 🎨 Theme Toggle Component
+
+The `ThemeToggle` component provides flexible theme switching with multiple variants.
+
+### Basic Usage
+
+```tsx
+import { ThemeToggle } from "@/components/ThemeToggle";
+
+export default function Header() {
+  return (
+    <header>
+      <ThemeToggle variant="click-small" />
+    </header>
+  );
+}
+```
+
+### Variants
+
+#### Click-Small (Default)
+
+```tsx
+<ThemeToggle variant="click-small" />
+```
+
+- Compact button design
+- Perfect for headers/navigation
+- Single click to toggle theme
+
+#### Slide
+
+```tsx
+<ThemeToggle variant="slide" />
+```
+
+- Animated slide switch design
+- More prominent visual feedback
+- Great for settings pages
+
+### Props
+
+| Prop      | Type                       | Default         | Description        |
+| --------- | -------------------------- | --------------- | ------------------ |
+| `variant` | `"slide" \| "click-small"` | `"click-small"` | Theme toggle style |
+
+### How It Works
+
+1. Uses `next-themes` for theme management
+2. Syncs across all browser tabs
+3. Persists theme preference to localStorage
+4. Respects system theme preference on first visit
+5. Hydration-safe (prevents hydration mismatch)
+
+### Theme-Aware Components
+
+All form components automatically respond to theme changes:
+
+- Text inputs, selects, textareas
+- OTP input boxes
+- File uploads
+- Checkboxes and radio groups
+- Labels and error messages
+- Editor with syntax highlighting on links
+
+### Customizing Themes
+
+Edit your Tailwind config to customize light/dark mode colors:
+
+```javascript
+// tailwind.config.js
+export default {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        // Custom colors for light mode
+        // Custom colors for dark mode
+      },
+    },
+  },
+};
+```
+
+### Programmatic Theme Control
+
+```tsx
+import { useTheme } from "next-themes";
+
+export function ThemeController() {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <div>
+      Current theme: {theme}
+      <button onClick={() => setTheme("light")}>Light</button>
+      <button onClick={() => setTheme("dark")}>Dark</button>
+    </div>
+  );
+}
 ```
 
 ---
@@ -471,4 +677,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with ❤️ by developers, for developers**
 
 **Ready to start building?** [View Examples →](http://localhost:3000/example)
-

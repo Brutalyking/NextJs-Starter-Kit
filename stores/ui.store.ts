@@ -42,14 +42,14 @@ const initialState: UIState = {
 /**
  * UI state management store
  * Manages application-wide UI states like sidebars, modals, notifications
- * 
+ *
  * @example
  * ```tsx
  * import { useUIStore } from '@/stores/ui.store';
- * 
+ *
  * function Sidebar() {
  *   const { isSidebarOpen, toggleSidebar } = useUIStore();
- *   
+ *
  *   return (
  *     <aside className={isSidebarOpen ? 'open' : 'closed'}>
  *       <button onClick={toggleSidebar}>Toggle</button>

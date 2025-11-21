@@ -19,4 +19,4 @@ export const toastMessages = {
     success: (data: { name: string }) => `${data.name} has been created`,
     error: "Something went wrong while creating the event.",
   },
-} as const
+} as const;

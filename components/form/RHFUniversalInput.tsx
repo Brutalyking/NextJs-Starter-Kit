@@ -70,10 +70,10 @@ const OTPInput: React.FC<OTPInputPropsExtended> = ({
 
     // Only take the last character if multiple are pasted/entered
     const char = newValue.slice(-1);
-    
+
     const newDigits = [...digits];
     newDigits[index] = char;
-    
+
     const newOtp = newDigits.join("");
     onChange(newOtp);
 
@@ -83,7 +83,10 @@ const OTPInput: React.FC<OTPInputPropsExtended> = ({
     }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    index: number,
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     // Handle backspace
     if (e.key === "Backspace" && !digits[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
@@ -100,26 +103,44 @@ const OTPInput: React.FC<OTPInputPropsExtended> = ({
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text/plain").slice(0, length);
-    
+
     if (pattern === "[0-9]*" && !/^\d*$/.test(pastedData)) {
       return;
     }
-    
+
     onChange(pastedData);
-    
+
     // Focus the next empty input or the last one
     const nextIndex = Math.min(pastedData.length, length - 1);
     inputRefs.current[nextIndex]?.focus();
   };
 
   const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-  const borderClass = getThemeClasses("border-gray-300", "border-gray-700", currentTheme);
-  const textClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-  const ringClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-  const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
+  const borderClass = getThemeClasses(
+    "border-gray-300",
+    "border-gray-700",
+    currentTheme,
+  );
+  const textClass = getThemeClasses(
+    "text-gray-900",
+    "text-gray-100",
+    currentTheme,
+  );
+  const ringClass = getThemeClasses(
+    "focus:ring-gray-900",
+    "focus:ring-gray-100",
+    currentTheme,
+  );
+  const disabledBgClass = getThemeClasses(
+    "disabled:bg-gray-50",
+    "disabled:bg-gray-900",
+    currentTheme,
+  );
 
   return (
-    <div className={`flex gap-2 ${className || ""}`}>
+    <div
+      className={`flex gap-1 sm:gap-1.5 md:gap-2 lg:gap-3 justify-center w-full px-2 ${className || ""}`}
+    >
       {Array.from({ length }).map((_, index) => (
         <input
           key={index}
@@ -134,7 +155,7 @@ const OTPInput: React.FC<OTPInputPropsExtended> = ({
           onKeyDown={(e) => handleKeyDown(index, e)}
           onPaste={handlePaste}
           disabled={disabled}
-          className={`w-12 h-12 text-center text-xl font-semibold ${bgClass} border-2 ${borderClass} ${textClass} rounded-lg focus:outline-none focus:ring-2 ${ringClass} focus:border-transparent ${disabledBgClass} disabled:cursor-not-allowed disabled:opacity-50 transition-all`}
+          className={`flex-1 max-w-8 sm:max-w-10 md:max-w-12 lg:max-w-14 aspect-square text-center text-xs sm:text-sm md:text-base lg:text-lg font-semibold ${bgClass} border-2 ${borderClass} ${textClass} rounded-sm sm:rounded-md md:rounded-lg focus:outline-none focus:ring-2 ${ringClass} focus:border-transparent ${disabledBgClass} disabled:cursor-not-allowed disabled:opacity-50 transition-all`}
           autoComplete={index === 0 ? "one-time-code" : "off"}
         />
       ))}
@@ -165,47 +186,78 @@ const Editor: React.FC<EditorProps> = ({
 }) => {
   const currentTheme = useThemeMode(theme);
   const editorRef = React.useRef<HTMLDivElement>(null);
-  const [activeFormats, setActiveFormats] = React.useState<Set<string>>(new Set());
+  const [activeFormats, setActiveFormats] = React.useState<Set<string>>(
+    new Set(),
+  );
   const [showLinkInput, setShowLinkInput] = React.useState(false);
-  const [linkUrl, setLinkUrl] = React.useState('https://');
+  const [linkUrl, setLinkUrl] = React.useState("https://");
   const linkInputRef = React.useRef<HTMLInputElement>(null);
   const savedSelectionRef = React.useRef<Range | null>(null);
 
-  const borderClass = getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
+  const borderClass = getThemeClasses(
+    "border-gray-200",
+    "border-gray-800",
+    currentTheme,
+  );
   const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-  const toolbarBgClass = getThemeClasses("bg-gray-50", "bg-gray-900", currentTheme);
-  const textClass = getThemeClasses("text-gray-700", "text-gray-300", currentTheme);
-  const hoverClass = getThemeClasses("hover:bg-gray-200", "hover:bg-gray-700", currentTheme);
-  const activeClass = getThemeClasses("bg-gray-900 text-white", "bg-gray-100 text-gray-900", currentTheme);
-  const mainTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-  const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
+  const toolbarBgClass = getThemeClasses(
+    "bg-gray-50",
+    "bg-gray-900",
+    currentTheme,
+  );
+  const textClass = getThemeClasses(
+    "text-gray-700",
+    "text-gray-300",
+    currentTheme,
+  );
+  const hoverClass = getThemeClasses(
+    "hover:bg-gray-200",
+    "hover:bg-gray-700",
+    currentTheme,
+  );
+  const activeClass = getThemeClasses(
+    "bg-gray-900 text-white",
+    "bg-gray-100 text-gray-900",
+    currentTheme,
+  );
+  const mainTextClass = getThemeClasses(
+    "text-gray-900",
+    "text-gray-100",
+    currentTheme,
+  );
+  const disabledBgClass = getThemeClasses(
+    "disabled:bg-gray-50",
+    "disabled:bg-gray-900",
+    currentTheme,
+  );
 
   // Initialize editor content
   React.useEffect(() => {
     if (editorRef.current && editorRef.current.innerHTML !== value) {
-      editorRef.current.innerHTML = value || '';
+      editorRef.current.innerHTML = value || "";
     }
   }, [value]);
 
   // Update active formats based on cursor position
   const updateActiveFormats = () => {
     const formats = new Set<string>();
-    
-    if (document.queryCommandState('bold')) formats.add('bold');
-    if (document.queryCommandState('italic')) formats.add('italic');
-    if (document.queryCommandState('underline')) formats.add('underline');
-    if (document.queryCommandState('strikeThrough')) formats.add('strikethrough');
-    if (document.queryCommandState('insertUnorderedList')) formats.add('ul');
-    if (document.queryCommandState('insertOrderedList')) formats.add('ol');
-    if (document.queryCommandState('justifyLeft')) formats.add('left');
-    if (document.queryCommandState('justifyCenter')) formats.add('center');
-    if (document.queryCommandState('justifyRight')) formats.add('right');
-    
-    const block = document.queryCommandValue('formatBlock').toLowerCase();
-    if (block === 'h1') formats.add('h1');
-    if (block === 'h2') formats.add('h2');
-    if (block === 'h3') formats.add('h3');
-    
+
+    if (document.queryCommandState("bold")) formats.add("bold");
+    if (document.queryCommandState("italic")) formats.add("italic");
+    if (document.queryCommandState("underline")) formats.add("underline");
+    if (document.queryCommandState("strikeThrough"))
+      formats.add("strikethrough");
+    if (document.queryCommandState("insertUnorderedList")) formats.add("ul");
+    if (document.queryCommandState("insertOrderedList")) formats.add("ol");
+    if (document.queryCommandState("justifyLeft")) formats.add("left");
+    if (document.queryCommandState("justifyCenter")) formats.add("center");
+    if (document.queryCommandState("justifyRight")) formats.add("right");
+
+    const block = document.queryCommandValue("formatBlock").toLowerCase();
+    if (block === "h1") formats.add("h1");
+    if (block === "h2") formats.add("h2");
+    if (block === "h3") formats.add("h3");
+
     setActiveFormats(formats);
   };
 
@@ -221,9 +273,9 @@ const Editor: React.FC<EditorProps> = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener('selectionchange', handleSelectionChange);
+    document.addEventListener("selectionchange", handleSelectionChange);
     return () => {
-      document.removeEventListener('selectionchange', handleSelectionChange);
+      document.removeEventListener("selectionchange", handleSelectionChange);
     };
   }, []);
 
@@ -236,16 +288,16 @@ const Editor: React.FC<EditorProps> = ({
 
   const handleLinkCreate = () => {
     const trimmedUrl = linkUrl.trim();
-    
+
     // Validate URL is not empty and not just the default 'https://'
-    if (!trimmedUrl || trimmedUrl === 'https://' || trimmedUrl === 'http://') {
+    if (!trimmedUrl || trimmedUrl === "https://" || trimmedUrl === "http://") {
       return; // Don't insert invalid URLs
     }
-    
+
     // Basic URL validation
     try {
       new URL(trimmedUrl);
-      
+
       // Restore the saved selection before creating the link
       if (savedSelectionRef.current) {
         const selection = window.getSelection();
@@ -254,10 +306,10 @@ const Editor: React.FC<EditorProps> = ({
           selection.addRange(savedSelectionRef.current);
         }
       }
-      
-      execCommand('createLink', trimmedUrl);
+
+      execCommand("createLink", trimmedUrl);
       setShowLinkInput(false);
-      setLinkUrl('https://');
+      setLinkUrl("https://");
       savedSelectionRef.current = null;
     } catch {
       // Invalid URL format, don't insert
@@ -273,9 +325,9 @@ const Editor: React.FC<EditorProps> = ({
     }
   }, [showLinkInput]);
 
-  const ToolbarButton: React.FC<{ 
-    onClick: () => void; 
-    children: React.ReactNode; 
+  const ToolbarButton: React.FC<{
+    onClick: () => void;
+    children: React.ReactNode;
     title: string;
     isActive?: boolean;
   }> = ({ onClick, children, title, isActive = false }) => (
@@ -293,20 +345,40 @@ const Editor: React.FC<EditorProps> = ({
   );
 
   return (
-    <div className={`border ${borderClass} ${bgClass} rounded-lg ${className || ""}`}>
-      <div className={`${toolbarBgClass} px-3 py-2 border-b ${borderClass} rounded-t-lg`}>
+    <div
+      className={`border ${borderClass} ${bgClass} rounded-lg ${className || ""}`}
+    >
+      <div
+        className={`${toolbarBgClass} px-3 py-2 border-b ${borderClass} rounded-t-lg`}
+      >
         <div className="flex flex-wrap gap-1">
           {/* Text Formatting */}
-          <ToolbarButton onClick={() => execCommand('bold')} title="Bold (Ctrl+B)" isActive={activeFormats.has('bold')}>
+          <ToolbarButton
+            onClick={() => execCommand("bold")}
+            title="Bold (Ctrl+B)"
+            isActive={activeFormats.has("bold")}
+          >
             <strong>B</strong>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('italic')} title="Italic (Ctrl+I)" isActive={activeFormats.has('italic')}>
+          <ToolbarButton
+            onClick={() => execCommand("italic")}
+            title="Italic (Ctrl+I)"
+            isActive={activeFormats.has("italic")}
+          >
             <em>I</em>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('underline')} title="Underline (Ctrl+U)" isActive={activeFormats.has('underline')}>
+          <ToolbarButton
+            onClick={() => execCommand("underline")}
+            title="Underline (Ctrl+U)"
+            isActive={activeFormats.has("underline")}
+          >
             <u>U</u>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('strikeThrough')} title="Strikethrough" isActive={activeFormats.has('strikethrough')}>
+          <ToolbarButton
+            onClick={() => execCommand("strikeThrough")}
+            title="Strikethrough"
+            isActive={activeFormats.has("strikethrough")}
+          >
             <s>S</s>
           </ToolbarButton>
 
@@ -314,16 +386,31 @@ const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Headings */}
-          <ToolbarButton onClick={() => execCommand('formatBlock', 'h1')} title="Heading 1" isActive={activeFormats.has('h1')}>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h1")}
+            title="Heading 1"
+            isActive={activeFormats.has("h1")}
+          >
             <span className="font-bold text-base">H1</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('formatBlock', 'h2')} title="Heading 2" isActive={activeFormats.has('h2')}>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h2")}
+            title="Heading 2"
+            isActive={activeFormats.has("h2")}
+          >
             <span className="font-bold text-sm">H2</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('formatBlock', 'h3')} title="Heading 3" isActive={activeFormats.has('h3')}>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h3")}
+            title="Heading 3"
+            isActive={activeFormats.has("h3")}
+          >
             <span className="font-bold text-xs">H3</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('formatBlock', 'p')} title="Paragraph">
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "p")}
+            title="Paragraph"
+          >
             <span className="text-xs">P</span>
           </ToolbarButton>
 
@@ -331,10 +418,18 @@ const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Lists */}
-          <ToolbarButton onClick={() => execCommand('insertUnorderedList')} title="Bullet List" isActive={activeFormats.has('ul')}>
+          <ToolbarButton
+            onClick={() => execCommand("insertUnorderedList")}
+            title="Bullet List"
+            isActive={activeFormats.has("ul")}
+          >
             <span className="text-base">•</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('insertOrderedList')} title="Numbered List" isActive={activeFormats.has('ol')}>
+          <ToolbarButton
+            onClick={() => execCommand("insertOrderedList")}
+            title="Numbered List"
+            isActive={activeFormats.has("ol")}
+          >
             <span className="text-xs font-semibold">1.</span>
           </ToolbarButton>
 
@@ -342,13 +437,25 @@ const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Alignment */}
-          <ToolbarButton onClick={() => execCommand('justifyLeft')} title="Align Left" isActive={activeFormats.has('left')}>
+          <ToolbarButton
+            onClick={() => execCommand("justifyLeft")}
+            title="Align Left"
+            isActive={activeFormats.has("left")}
+          >
             <span className="text-xs">⇤</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('justifyCenter')} title="Align Center" isActive={activeFormats.has('center')}>
+          <ToolbarButton
+            onClick={() => execCommand("justifyCenter")}
+            title="Align Center"
+            isActive={activeFormats.has("center")}
+          >
             <span className="text-xs">⇥</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand('justifyRight')} title="Align Right" isActive={activeFormats.has('right')}>
+          <ToolbarButton
+            onClick={() => execCommand("justifyRight")}
+            title="Align Right"
+            isActive={activeFormats.has("right")}
+          >
             <span className="text-xs">⇥</span>
           </ToolbarButton>
 
@@ -356,27 +463,30 @@ const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Link */}
-          <ToolbarButton 
+          <ToolbarButton
             onClick={() => {
               const selection = window.getSelection();
               if (!selection || selection.rangeCount === 0) return;
-              
+
               const selectedText = selection.toString();
               if (!selectedText) {
                 return;
               }
-              
+
               // Save the current selection so we can restore it later
               savedSelectionRef.current = selection.getRangeAt(0).cloneRange();
               setShowLinkInput(true);
-            }} 
+            }}
             title="Insert Link (Select text first)"
           >
             <span className="text-xs">🔗</span>
           </ToolbarButton>
 
           {/* Remove Formatting */}
-          <ToolbarButton onClick={() => execCommand('removeFormat')} title="Clear Formatting">
+          <ToolbarButton
+            onClick={() => execCommand("removeFormat")}
+            title="Clear Formatting"
+          >
             <span className="text-xs">✕</span>
           </ToolbarButton>
 
@@ -387,23 +497,27 @@ const Editor: React.FC<EditorProps> = ({
             </span>
           </div>
         </div>
-        
+
         {/* Link Input UI */}
         {showLinkInput && (
-          <div className={`flex items-center gap-2 px-3 py-2 border-b ${borderClass}`}>
-            <span className="text-sm text-gray-600 dark:text-gray-400">URL:</span>
+          <div
+            className={`flex items-center gap-2 px-3 py-2 border-b ${borderClass}`}
+          >
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              URL:
+            </span>
             <input
               ref={linkInputRef}
               type="text"
               value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   e.preventDefault();
                   handleLinkCreate();
-                } else if (e.key === 'Escape') {
+                } else if (e.key === "Escape") {
                   setShowLinkInput(false);
-                  setLinkUrl('https://');
+                  setLinkUrl("https://");
                 }
               }}
               className={`
@@ -430,7 +544,7 @@ const Editor: React.FC<EditorProps> = ({
               type="button"
               onClick={() => {
                 setShowLinkInput(false);
-                setLinkUrl('https://');
+                setLinkUrl("https://");
                 savedSelectionRef.current = null;
               }}
               className={`
@@ -453,44 +567,48 @@ const Editor: React.FC<EditorProps> = ({
         onClick={(e) => {
           // Make links clickable with Ctrl/Cmd + Click
           const target = e.target as HTMLElement;
-          if (target.tagName === 'A' && (e.ctrlKey || e.metaKey)) {
+          if (target.tagName === "A" && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
-            const href = target.getAttribute('href');
+            const href = target.getAttribute("href");
             if (href) {
-              window.open(href, '_blank', 'noopener,noreferrer');
+              window.open(href, "_blank", "noopener,noreferrer");
             }
           }
         }}
-        className={`w-full px-3 py-2 min-h-[200px] ${bgClass} ${mainTextClass} focus:outline-none rounded-b-lg ${disabledBgClass} ${disabled ? 'cursor-not-allowed opacity-50' : ''} transition-colors overflow-auto`}
+        className={`w-full px-3 py-2 min-h-[200px] ${bgClass} ${mainTextClass} focus:outline-none rounded-b-lg ${disabledBgClass} ${disabled ? "cursor-not-allowed opacity-50" : ""} transition-colors overflow-auto`}
         suppressContentEditableWarning
         data-placeholder={placeholder || "Start typing..."}
         style={{
-          wordBreak: 'break-word',
-          overflowWrap: 'break-word',
+          wordBreak: "break-word",
+          overflowWrap: "break-word",
         }}
       />
-      <style dangerouslySetInnerHTML={{__html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         [contenteditable][data-placeholder]:empty:before {
           content: attr(data-placeholder);
-          color: ${currentTheme === 'dark' ? '#6b7280' : '#9ca3af'};
+          color: ${currentTheme === "dark" ? "#6b7280" : "#9ca3af"};
           pointer-events: none;
         }
         [contenteditable] a {
-          color: ${currentTheme === 'dark' ? '#60a5fa' : '#2563eb'} !important;
+          color: ${currentTheme === "dark" ? "#60a5fa" : "#2563eb"} !important;
           text-decoration: underline !important;
           cursor: pointer !important;
           font-weight: 500 !important;
           text-decoration-thickness: 2px !important;
           text-underline-offset: 2px !important;
-          background-color: ${currentTheme === 'dark' ? 'rgba(96, 165, 250, 0.15)' : 'rgba(37, 99, 235, 0.1)'} !important;
+          background-color: ${currentTheme === "dark" ? "rgba(96, 165, 250, 0.15)" : "rgba(37, 99, 235, 0.1)"} !important;
           padding: 2px 4px !important;
           border-radius: 3px !important;
         }
         [contenteditable] a:hover {
-          color: ${currentTheme === 'dark' ? '#93c5fd' : '#1e40af'} !important;
-          background-color: ${currentTheme === 'dark' ? 'rgba(96, 165, 250, 0.25)' : 'rgba(37, 99, 235, 0.2)'} !important;
+          color: ${currentTheme === "dark" ? "#93c5fd" : "#1e40af"} !important;
+          background-color: ${currentTheme === "dark" ? "rgba(96, 165, 250, 0.25)" : "rgba(37, 99, 235, 0.2)"} !important;
         }
-      `}} />
+      `,
+        }}
+      />
     </div>
   );
 };
@@ -499,7 +617,7 @@ const Editor: React.FC<EditorProps> = ({
  * RHFUniversalInput Component
  * A comprehensive input component that handles all input types through a single interface
  * Automatically integrates with React Hook Form using Controller
- * 
+ *
  * @example
  * ```tsx
  * // Text input
@@ -510,7 +628,7 @@ const Editor: React.FC<EditorProps> = ({
  *   required
  *   helperText="We'll never share your email"
  * />
- * 
+ *
  * // OTP input
  * <Field.Input
  *   name="otp"
@@ -519,7 +637,7 @@ const Editor: React.FC<EditorProps> = ({
  *   maxLength={6}
  *   pattern="[0-9]*"
  * />
- * 
+ *
  * // Textarea
  * <Field.Input
  *   name="description"
@@ -527,7 +645,7 @@ const Editor: React.FC<EditorProps> = ({
  *   label="Description"
  *   rows={4}
  * />
- * 
+ *
  * // Rich text editor
  * <Field.Input
  *   name="content"
@@ -598,10 +716,15 @@ export function RHFUniversalInput<T extends FieldValues>({
   const { control } = useFormContext<T>();
   const currentTheme = useThemeMode(theme);
   const [showPassword, setShowPassword] = React.useState(false);
-  
+
   // If placeholder is supplied, force floating label mode
   // OTP and Editor always use static label mode
-  const isFloating = type === "otp" || type === "editor" ? false : (placeholder ? true : labelMode === "floating");
+  const isFloating =
+    type === "otp" || type === "editor"
+      ? false
+      : placeholder
+        ? true
+        : labelMode === "floating";
 
   return (
     <Controller
@@ -609,30 +732,55 @@ export function RHFUniversalInput<T extends FieldValues>({
       control={control}
       render={({ field, fieldState: { error } }) => {
         const hasError = !!error;
-        
+
         // Check if field has value for floating label
         // For date inputs, always float the label
         // If placeholder is supplied, always float the label (to show placeholder)
         // For other inputs, check if value exists and is not the placeholder format
-        const hasValue = type === "date" || 
-                        type === "datetime-local" ||
-                        !!placeholder ||
-                        (field.value !== undefined && 
-                        field.value !== null && 
-                        field.value !== "" &&
-                        field.value !== "mm/dd/yyyy");
-        
+        const hasValue =
+          type === "date" ||
+          type === "datetime-local" ||
+          !!placeholder ||
+          (field.value !== undefined &&
+            field.value !== null &&
+            field.value !== "" &&
+            field.value !== "mm/dd/yyyy");
+
         // Theme-aware classes
-        const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+        const bgClass = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
         const borderClass = hasError
           ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
           : getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const textClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-        const placeholderClass = getThemeClasses("placeholder:text-gray-400", "placeholder:text-gray-600", currentTheme);
+        const textClass = getThemeClasses(
+          "text-gray-900",
+          "text-gray-100",
+          currentTheme,
+        );
+        const placeholderClass = getThemeClasses(
+          "placeholder:text-gray-400",
+          "placeholder:text-gray-600",
+          currentTheme,
+        );
         const ringClass = hasError
-          ? getThemeClasses("focus:ring-red-500", "focus:ring-red-400", currentTheme)
-          : getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-        const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
+          ? getThemeClasses(
+              "focus:ring-red-500",
+              "focus:ring-red-400",
+              currentTheme,
+            )
+          : getThemeClasses(
+              "focus:ring-gray-900",
+              "focus:ring-gray-100",
+              currentTheme,
+            );
+        const disabledBgClass = getThemeClasses(
+          "disabled:bg-gray-50",
+          "disabled:bg-gray-900",
+          currentTheme,
+        );
 
         const baseInputClasses = `w-full px-3 py-2.5 ${bgClass} border ${borderClass} ${textClass} ${
           isFloating ? `peer ${placeholderClass}` : placeholderClass
@@ -740,9 +888,17 @@ export function RHFUniversalInput<T extends FieldValues>({
             default:
               // Handle password type with toggle
               if (type === "password" && showPasswordToggle) {
-                const iconColor = getThemeClasses("text-gray-500", "text-gray-400", currentTheme);
-                const hoverIconColor = getThemeClasses("hover:text-gray-700", "hover:text-gray-300", currentTheme);
-                
+                const iconColor = getThemeClasses(
+                  "text-gray-500",
+                  "text-gray-400",
+                  currentTheme,
+                );
+                const hoverIconColor = getThemeClasses(
+                  "hover:text-gray-700",
+                  "hover:text-gray-300",
+                  currentTheme,
+                );
+
                 return (
                   <FormControl>
                     <div className="relative">
@@ -806,7 +962,7 @@ export function RHFUniversalInput<T extends FieldValues>({
                   </FormControl>
                 );
               }
-              
+
               return (
                 <FormControl>
                   <input
@@ -828,9 +984,15 @@ export function RHFUniversalInput<T extends FieldValues>({
         };
 
         // Theme-aware label background
-        const labelBg = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-        const labelFocusedColor = currentTheme === "dark" ? "text-gray-100" : "text-gray-900";
-        const labelUnfocusedColor = currentTheme === "dark" ? "text-gray-300" : "text-gray-900";
+        const labelBg = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
+        const labelFocusedColor =
+          currentTheme === "dark" ? "text-gray-100" : "text-gray-900";
+        const labelUnfocusedColor =
+          currentTheme === "dark" ? "text-gray-300" : "text-gray-900";
 
         return (
           <FormItem name={name}>
@@ -841,8 +1003,8 @@ export function RHFUniversalInput<T extends FieldValues>({
                   <FormLabel
                     required={required}
                     className={`absolute left-3 ${labelBg} px-1 font-medium transition-all duration-200 pointer-events-none ${
-                      hasValue 
-                        ? `-top-2.5 text-xs ${labelFocusedColor}` 
+                      hasValue
+                        ? `-top-2.5 text-xs ${labelFocusedColor}`
                         : `top-1/2 -translate-y-1/2 text-sm ${labelUnfocusedColor} peer-focus:-top-2.5 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:${labelFocusedColor}`
                     }`}
                   >

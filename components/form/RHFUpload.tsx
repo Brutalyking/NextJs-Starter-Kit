@@ -21,7 +21,7 @@ interface FileWithPreview extends File {
 const validateFile = (
   file: File,
   maxSize?: number,
-  accept?: string
+  accept?: string,
 ): string | null => {
   // Check file size
   if (maxSize && file.size > maxSize) {
@@ -62,17 +62,17 @@ const formatFileSize = (bytes: number): string => {
   const k = 1024;
   const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + " " + sizes[i];
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
 };
 
 /**
  * RHFUpload Component
  * A universal file upload component supporting single and multiple files
  * Automatically integrates with React Hook Form using Controller
- * 
+ *
  * Note: This component only handles the UI and file selection.
  * Actual file upload to server should be handled in your form submission logic.
- * 
+ *
  * @example
  * ```tsx
  * // Single file upload
@@ -83,7 +83,7 @@ const formatFileSize = (bytes: number): string => {
  *   maxSize={5 * 1024 * 1024} // 5MB
  *   helperText="Upload a profile picture (max 5MB)"
  * />
- * 
+ *
  * // Multiple file upload
  * <Field.Upload
  *   name="documents"
@@ -160,7 +160,7 @@ export function RHFUpload<T extends FieldValues>({
   const handleFiles = (
     files: FileList | null,
     currentFiles: FileList | null,
-    onChange: (files: FileList | null) => void
+    onChange: (files: FileList | null) => void,
   ): string | null => {
     if (!files || files.length === 0) return null;
 
@@ -207,7 +207,7 @@ export function RHFUpload<T extends FieldValues>({
   const removeFile = (
     index: number,
     currentFiles: FileList | null,
-    onChange: (files: FileList | null) => void
+    onChange: (files: FileList | null) => void,
   ) => {
     if (!currentFiles) return;
 
@@ -234,7 +234,7 @@ export function RHFUpload<T extends FieldValues>({
     e: React.DragEvent,
     currentFiles: FileList | null,
     onChange: (files: FileList | null) => void,
-    setError: (error: string) => void
+    setError: (error: string) => void,
   ) => {
     e.preventDefault();
     e.stopPropagation();
@@ -250,15 +250,51 @@ export function RHFUpload<T extends FieldValues>({
 
   // Theme-aware classes
   const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-  const borderClass = getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-  const textClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-  const mutedTextClass = getThemeClasses("text-gray-500", "text-gray-400", currentTheme);
-  const hoverBorderClass = getThemeClasses("hover:border-gray-400", "hover:border-gray-600", currentTheme);
-  const dragBgClass = getThemeClasses("bg-gray-50", "bg-gray-900", currentTheme);
-  const dragBorderClass = getThemeClasses("border-gray-900", "border-gray-100", currentTheme);
-  const cardBgClass = getThemeClasses("bg-gray-50", "bg-gray-900", currentTheme);
-  const iconBgClass = getThemeClasses("bg-gray-200", "bg-gray-800", currentTheme);
-  const iconTextClass = getThemeClasses("text-gray-400", "text-gray-600", currentTheme);
+  const borderClass = getThemeClasses(
+    "border-gray-200",
+    "border-gray-800",
+    currentTheme,
+  );
+  const textClass = getThemeClasses(
+    "text-gray-900",
+    "text-gray-100",
+    currentTheme,
+  );
+  const mutedTextClass = getThemeClasses(
+    "text-gray-500",
+    "text-gray-400",
+    currentTheme,
+  );
+  const hoverBorderClass = getThemeClasses(
+    "hover:border-gray-400",
+    "hover:border-gray-600",
+    currentTheme,
+  );
+  const dragBgClass = getThemeClasses(
+    "bg-gray-50",
+    "bg-gray-900",
+    currentTheme,
+  );
+  const dragBorderClass = getThemeClasses(
+    "border-gray-900",
+    "border-gray-100",
+    currentTheme,
+  );
+  const cardBgClass = getThemeClasses(
+    "bg-gray-50",
+    "bg-gray-900",
+    currentTheme,
+  );
+  const iconBgClass = getThemeClasses(
+    "bg-gray-200",
+    "bg-gray-800",
+    currentTheme,
+  );
+  const iconTextClass = getThemeClasses(
+    "text-gray-400",
+    "text-gray-600",
+    currentTheme,
+  );
 
   return (
     <Controller
@@ -286,10 +322,14 @@ export function RHFUpload<T extends FieldValues>({
                 multiple={multiple}
                 disabled={disabled}
                 onChange={(e) => {
-                  const error = handleFiles(e.target.files, files, (newFiles) => {
-                    field.onChange(newFiles);
-                    onChangeSideEffect?.(newFiles);
-                  });
+                  const error = handleFiles(
+                    e.target.files,
+                    files,
+                    (newFiles) => {
+                      field.onChange(newFiles);
+                      onChangeSideEffect?.(newFiles);
+                    },
+                  );
                   if (error) {
                     setValidationError(error);
                   } else {
@@ -309,7 +349,11 @@ export function RHFUpload<T extends FieldValues>({
                     }}
                     className={`relative w-32 h-32 rounded-full border-2 ${
                       hasError || validationError
-                        ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
+                        ? getThemeClasses(
+                            "border-red-500",
+                            "border-red-400",
+                            currentTheme,
+                          )
                         : borderClass
                     } ${bgClass} cursor-pointer overflow-hidden transition-all ${hoverBorderClass} ${
                       disabled ? "opacity-50 cursor-not-allowed" : ""
@@ -352,8 +396,18 @@ export function RHFUpload<T extends FieldValues>({
                         disabled={disabled}
                         className={`absolute top-2 right-2 p-1 rounded-full ${getThemeClasses("bg-red-500 text-white", "bg-red-400 text-gray-900", currentTheme)} hover:${getThemeClasses("bg-red-600", "bg-red-300", currentTheme)} cursor-pointer transition-colors`}
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
                         </svg>
                       </button>
                     )}
@@ -374,13 +428,27 @@ export function RHFUpload<T extends FieldValues>({
                     disabled={disabled}
                     className={`px-4 py-2 ${bgClass} border ${
                       hasError || validationError
-                        ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
+                        ? getThemeClasses(
+                            "border-red-500",
+                            "border-red-400",
+                            currentTheme,
+                          )
                         : borderClass
                     } ${textClass} rounded-lg ${hoverBorderClass} cursor-pointer transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     <span className="flex items-center justify-center gap-2">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 4v16m8-8H4"
+                        />
                       </svg>
                       Choose File{multiple ? "s" : ""}
                     </span>
@@ -398,10 +466,15 @@ export function RHFUpload<T extends FieldValues>({
                   onDragLeave={handleDrag}
                   onDragOver={handleDrag}
                   onDrop={(e) =>
-                    handleDrop(e, files, (newFiles) => {
-                      field.onChange(newFiles);
-                      onChangeSideEffect?.(newFiles);
-                    }, setValidationError)
+                    handleDrop(
+                      e,
+                      files,
+                      (newFiles) => {
+                        field.onChange(newFiles);
+                        onChangeSideEffect?.(newFiles);
+                      },
+                      setValidationError,
+                    )
                   }
                   onClick={() => {
                     if (!disabled) fileInputRef.current?.click();
@@ -413,8 +486,12 @@ export function RHFUpload<T extends FieldValues>({
                       dragActive
                         ? `${dragBorderClass} ${dragBgClass}`
                         : hasError || validationError
-                        ? getThemeClasses("border-red-500 bg-red-50", "border-red-400 bg-red-950/20", currentTheme)
-                        : `${getThemeClasses("border-gray-300", "border-gray-700", currentTheme)} ${hoverBorderClass}`
+                          ? getThemeClasses(
+                              "border-red-500 bg-red-50",
+                              "border-red-400 bg-red-950/20",
+                              currentTheme,
+                            )
+                          : `${getThemeClasses("border-gray-300", "border-gray-700", currentTheme)} ${hoverBorderClass}`
                     }
                     ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                   `}
@@ -433,7 +510,9 @@ export function RHFUpload<T extends FieldValues>({
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
                     </svg>
-                    <p className={`mb-2 text-sm ${getThemeClasses("text-gray-700", "text-gray-300", currentTheme)}`}>
+                    <p
+                      className={`mb-2 text-sm ${getThemeClasses("text-gray-700", "text-gray-300", currentTheme)}`}
+                    >
                       <span className="font-semibold">Click to upload</span> or
                       drag and drop
                     </p>
@@ -451,7 +530,9 @@ export function RHFUpload<T extends FieldValues>({
               {fileCount > 0 && uploadStyle !== "avatar" && (
                 <div className="mt-4 space-y-2">
                   {Array.from(files!).map((file, index) => {
-                    const preview = showPreview ? createPreview(file) : undefined;
+                    const preview = showPreview
+                      ? createPreview(file)
+                      : undefined;
 
                     return (
                       <div
@@ -466,7 +547,9 @@ export function RHFUpload<T extends FieldValues>({
                           />
                         )}
                         {!preview && (
-                          <div className={`w-12 h-12 flex items-center justify-center ${iconBgClass} rounded`}>
+                          <div
+                            className={`w-12 h-12 flex items-center justify-center ${iconBgClass} rounded`}
+                          >
                             <svg
                               className={`w-6 h-6 ${iconTextClass}`}
                               fill="none"
@@ -483,7 +566,9 @@ export function RHFUpload<T extends FieldValues>({
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className={`text-sm font-medium ${textClass} truncate`}>
+                          <p
+                            className={`text-sm font-medium ${textClass} truncate`}
+                          >
                             {file.name}
                           </p>
                           <p className={`text-xs ${mutedTextClass}`}>
@@ -528,7 +613,9 @@ export function RHFUpload<T extends FieldValues>({
               <FormDescription>{helperText}</FormDescription>
             )}
             {validationError && (
-              <p className={`text-sm font-medium ${getThemeClasses("text-red-500", "text-red-400", currentTheme)}`}>
+              <p
+                className={`text-sm font-medium ${getThemeClasses("text-red-500", "text-red-400", currentTheme)}`}
+              >
                 {validationError}
               </p>
             )}

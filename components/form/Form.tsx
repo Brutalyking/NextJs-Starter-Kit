@@ -6,11 +6,11 @@ import { FormProvider, UseFormReturn, FieldValues } from "react-hook-form";
 /**
  * Form component that wraps React Hook Form's FormProvider
  * Provides form context to all child components
- * 
+ *
  * @example
  * ```tsx
  * const form = useForm<FormData>({...})
- * 
+ *
  * <Form form={form} onSubmit={(data) => console.log(data)}>
  *   <Field.Input name="email" type="email" label="Email" />
  *   <button type="submit">Submit</button>

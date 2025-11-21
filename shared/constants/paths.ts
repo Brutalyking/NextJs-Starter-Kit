@@ -7,8 +7,8 @@
  * @param subPath - Optional subpath under "/auth"
  * @returns Full path string
  */
-const buildAuthPath = (subPath: string) => `/auth${subPath ? `/${subPath}` : ""}`;
-
+const buildAuthPath = (subPath: string) =>
+  `/auth${subPath ? `/${subPath}` : ""}`;
 
 /* ----------------------------------------------------
    Application Paths
@@ -21,7 +21,7 @@ const buildAuthPath = (subPath: string) => `/auth${subPath ? `/${subPath}` : ""}
 export const APP_PATHS = {
   /** Base path of the application */
   BASE: "/",
-  EXAMPLE : "/example",
+  EXAMPLE: "/example",
 
   /** Authentication-related routes */
   AUTH: {

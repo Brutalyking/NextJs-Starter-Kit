@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
-import { toastMessages } from "@/shared/constants/toast-messages"
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { toastMessages } from "@/shared/constants/toast-messages";
 
 export function SonnerTypes() {
   return (
@@ -16,36 +16,28 @@ export function SonnerTypes() {
 
       <Button
         variant="outline"
-        onClick={() =>
-          toast.success(toastMessages.success.eventCreated)
-        }
+        onClick={() => toast.success(toastMessages.success.eventCreated)}
       >
         Success
       </Button>
 
       <Button
         variant="outline"
-        onClick={() =>
-          toast.info(toastMessages.info.arriveEarly)
-        }
+        onClick={() => toast.info(toastMessages.info.arriveEarly)}
       >
         Info
       </Button>
 
       <Button
         variant="outline"
-        onClick={() =>
-          toast.warning(toastMessages.warning.tooEarly)
-        }
+        onClick={() => toast.warning(toastMessages.warning.tooEarly)}
       >
         Warning
       </Button>
 
       <Button
         variant="outline"
-        onClick={() =>
-          toast.error(toastMessages.error.eventFailed)
-        }
+        onClick={() => toast.error(toastMessages.error.eventFailed)}
       >
         Error
       </Button>
@@ -56,18 +48,18 @@ export function SonnerTypes() {
           toast.promise(
             () =>
               new Promise<{ name: string }>((resolve) =>
-                setTimeout(() => resolve({ name: "Event" }), 2000)
+                setTimeout(() => resolve({ name: "Event" }), 2000),
               ),
             {
               loading: toastMessages.promise.loading,
               success: toastMessages.promise.success,
               error: toastMessages.promise.error,
-            }
-          )
+            },
+          );
         }}
       >
         Promise
       </Button>
     </div>
-  )
+  );
 }

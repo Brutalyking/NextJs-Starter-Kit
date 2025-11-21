@@ -1,6 +1,6 @@
 /**
  * React Hook Form Component System
- * 
+ *
  * A comprehensive, production-ready form component library for Next.js with TypeScript
  * Built on React Hook Form with automatic integration via Controller
  * ```
@@ -39,15 +39,15 @@ import { RHFUpload } from "./RHFUpload";
 
 /**
  * Field object - Convenient access to all form field components
- * 
+ *
  * This object maps semantic names to their corresponding RHF components
  * for cleaner, more readable code.
- * 
+ *
  * @example
  * ```tsx
  * // Instead of:
  * <RHFUniversalInput name="email" type="email" label="Email" />
- * 
+ *
  * // Use:
  * <Field.Input name="email" type="email" label="Email" />
  * ```

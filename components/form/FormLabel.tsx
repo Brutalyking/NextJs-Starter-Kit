@@ -8,7 +8,7 @@ import { useFormField } from "./FormItem";
  * Automatically associates with form control via htmlFor
  * Displays required indicator when needed
  * Supports dark mode
- * 
+ *
  * @example
  * ```tsx
  * <FormLabel required>Email Address</FormLabel>
@@ -36,7 +36,9 @@ export function FormLabel({
       {...props}
     >
       {children}
-      {required && <span className="text-red-500 dark:text-red-400 ml-1">*</span>}
+      {required && (
+        <span className="text-red-500 dark:text-red-400 ml-1">*</span>
+      )}
     </label>
   );
 }

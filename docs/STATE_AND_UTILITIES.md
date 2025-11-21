@@ -1,6 +1,7 @@
 # State Management & Utilities Documentation
 
 ## Table of Contents
+
 1. [Zustand State Management](#zustand-state-management)
 2. [React Query (TanStack Query)](#react-query-tanstack-query)
 3. [Toast Notifications (Sonner)](#toast-notifications-sonner)
@@ -17,6 +18,7 @@
 Zustand is a small, fast state management solution for React. This project includes pre-configured stores for common use cases.
 
 **Key Features:**
+
 - ✅ Minimal boilerplate
 - ✅ No context providers needed
 - ✅ TypeScript support
@@ -24,6 +26,7 @@ Zustand is a small, fast state management solution for React. This project inclu
 - ✅ Selectors for optimized re-renders
 
 ### File Structure
+
 ```
 stores/
 ├── auth.store.ts      # Authentication state
@@ -42,7 +45,7 @@ Manages user authentication state with persistent storage.
 #### Usage
 
 ```tsx
-import { useAuthStore } from '@/stores/auth.store';
+import { useAuthStore } from "@/stores/auth.store";
 
 function UserProfile() {
   const { user, login, logout, updateUser } = useAuthStore();
@@ -64,16 +67,16 @@ function UserProfile() {
 
 #### API Reference
 
-| Property/Method | Type | Description |
-|----------------|------|-------------|
-| `user` | `User \| null` | Current user object |
-| `isAuthenticated` | `boolean` | Authentication status |
-| `isLoading` | `boolean` | Loading state |
-| `login(user)` | `(user: User) => void` | Login user |
-| `logout()` | `() => void` | Logout and clear state |
-| `setUser(user)` | `(user: User \| null) => void` | Set user directly |
+| Property/Method       | Type                               | Description            |
+| --------------------- | ---------------------------------- | ---------------------- |
+| `user`                | `User \| null`                     | Current user object    |
+| `isAuthenticated`     | `boolean`                          | Authentication status  |
+| `isLoading`           | `boolean`                          | Loading state          |
+| `login(user)`         | `(user: User) => void`             | Login user             |
+| `logout()`            | `() => void`                       | Logout and clear state |
+| `setUser(user)`       | `(user: User \| null) => void`     | Set user directly      |
 | `updateUser(updates)` | `(updates: Partial<User>) => void` | Update specific fields |
-| `setLoading(loading)` | `(loading: boolean) => void` | Set loading state |
+| `setLoading(loading)` | `(loading: boolean) => void`       | Set loading state      |
 
 #### User Type
 
@@ -92,19 +95,19 @@ interface User {
 Selectors prevent unnecessary re-renders by selecting only the data you need:
 
 ```tsx
-import { useAuthStore, selectUser, selectIsAuthenticated } from '@/stores';
+import { useAuthStore, selectUser, selectIsAuthenticated } from "@/stores";
 
 function Header() {
   // Only re-renders when user changes (not when isLoading changes)
   const user = useAuthStore(selectUser);
-  
+
   return <div>Hello, {user?.name}</div>;
 }
 
 function ProtectedRoute() {
   // Only re-renders when isAuthenticated changes
   const isAuthenticated = useAuthStore(selectIsAuthenticated);
-  
+
   if (!isAuthenticated) return <Redirect to="/login" />;
   return <Dashboard />;
 }
@@ -113,9 +116,9 @@ function ProtectedRoute() {
 #### Complete Login/Logout Example
 
 ```tsx
-import { useAuthStore } from '@/stores';
-import { internalAPI } from '@/lib/http/internal-api';
-import { toast } from 'sonner';
+import { useAuthStore } from "@/stores";
+import { internalAPI } from "@/lib/http/internal-api";
+import { toast } from "sonner";
 
 function LoginForm() {
   const { login, setLoading } = useAuthStore();
@@ -123,9 +126,12 @@ function LoginForm() {
   async function handleLogin(email: string, password: string) {
     setLoading(true);
     try {
-      const response = await internalAPI.post('/auth/login', { email, password });
+      const response = await internalAPI.post("/auth/login", {
+        email,
+        password,
+      });
       login(response.data.user);
-      toast.success('Login successful!');
+      toast.success("Login successful!");
     } catch (error) {
       toast.error(error);
     } finally {
@@ -141,11 +147,11 @@ function LogoutButton() {
 
   async function handleLogout() {
     try {
-      await internalAPI.post('/auth/logout');
+      await internalAPI.post("/auth/logout");
       logout();
-      toast.success('Logged out successfully');
+      toast.success("Logged out successfully");
     } catch (error) {
-      toast.error('Logout failed');
+      toast.error("Logout failed");
     }
   }
 
@@ -158,8 +164,9 @@ function LogoutButton() {
 The auth store automatically persists to `localStorage` under the key `auth-storage`. It survives page refreshes.
 
 To clear persisted data:
+
 ```typescript
-localStorage.removeItem('auth-storage');
+localStorage.removeItem("auth-storage");
 ```
 
 ---
@@ -173,13 +180,13 @@ Manages application-wide UI state (sidebar, modals, notifications).
 #### Usage
 
 ```tsx
-import { useUIStore } from '@/stores/ui.store';
+import { useUIStore } from "@/stores/ui.store";
 
 function Sidebar() {
   const { isSidebarOpen, toggleSidebar } = useUIStore();
 
   return (
-    <aside className={isSidebarOpen ? 'block' : 'hidden'}>
+    <aside className={isSidebarOpen ? "block" : "hidden"}>
       <button onClick={toggleSidebar}>Toggle</button>
     </aside>
   );
@@ -188,25 +195,25 @@ function Sidebar() {
 
 #### API Reference
 
-| Property/Method | Type | Description |
-|----------------|------|-------------|
-| `isSidebarOpen` | `boolean` | Sidebar open/closed state |
-| `isModalOpen` | `boolean` | Modal open/closed state |
-| `modalContent` | `React.ReactNode \| null` | Modal content |
-| `notifications` | `number` | Notification count |
-| `toggleSidebar()` | `() => void` | Toggle sidebar |
-| `openSidebar()` | `() => void` | Open sidebar |
-| `closeSidebar()` | `() => void` | Close sidebar |
-| `openModal(content)` | `(content: React.ReactNode) => void` | Open modal with content |
-| `closeModal()` | `() => void` | Close modal |
-| `setNotifications(count)` | `(count: number) => void` | Set notification count |
-| `incrementNotifications()` | `() => void` | Increment by 1 |
-| `clearNotifications()` | `() => void` | Clear all notifications |
+| Property/Method            | Type                                 | Description               |
+| -------------------------- | ------------------------------------ | ------------------------- |
+| `isSidebarOpen`            | `boolean`                            | Sidebar open/closed state |
+| `isModalOpen`              | `boolean`                            | Modal open/closed state   |
+| `modalContent`             | `React.ReactNode \| null`            | Modal content             |
+| `notifications`            | `number`                             | Notification count        |
+| `toggleSidebar()`          | `() => void`                         | Toggle sidebar            |
+| `openSidebar()`            | `() => void`                         | Open sidebar              |
+| `closeSidebar()`           | `() => void`                         | Close sidebar             |
+| `openModal(content)`       | `(content: React.ReactNode) => void` | Open modal with content   |
+| `closeModal()`             | `() => void`                         | Close modal               |
+| `setNotifications(count)`  | `(count: number) => void`            | Set notification count    |
+| `incrementNotifications()` | `() => void`                         | Increment by 1            |
+| `clearNotifications()`     | `() => void`                         | Clear all notifications   |
 
 #### Modal Example
 
 ```tsx
-import { useUIStore } from '@/stores';
+import { useUIStore } from "@/stores";
 
 function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
   const { closeModal } = useUIStore();
@@ -214,7 +221,12 @@ function DeleteConfirmation({ onConfirm }: { onConfirm: () => void }) {
   return (
     <div className="p-6">
       <h2>Are you sure?</h2>
-      <button onClick={() => { onConfirm(); closeModal(); }}>
+      <button
+        onClick={() => {
+          onConfirm();
+          closeModal();
+        }}
+      >
         Yes, delete
       </button>
       <button onClick={closeModal}>Cancel</button>
@@ -226,14 +238,10 @@ function UserList() {
   const { openModal } = useUIStore();
 
   function handleDeleteClick(userId: string) {
-    openModal(
-      <DeleteConfirmation 
-        onConfirm={() => deleteUser(userId)} 
-      />
-    );
+    openModal(<DeleteConfirmation onConfirm={() => deleteUser(userId)} />);
   }
 
-  return <button onClick={() => handleDeleteClick('123')}>Delete</button>;
+  return <button onClick={() => handleDeleteClick("123")}>Delete</button>;
 }
 
 // In your layout or App component
@@ -258,7 +266,7 @@ function App() {
 #### Notification Badge Example
 
 ```tsx
-import { useUIStore, selectNotifications } from '@/stores';
+import { useUIStore, selectNotifications } from "@/stores";
 
 function NotificationBell() {
   const notifications = useUIStore(selectNotifications);
@@ -323,14 +331,13 @@ export const useMyStore = create<MyStore>()(
           data: state.data.filter((d) => d !== item),
         })),
 
-      setLoading: (loading) =>
-        set({ loading }),
+      setLoading: (loading) => set({ loading }),
     }),
     {
       name: "my-storage", // localStorage key
       storage: createJSONStorage(() => localStorage),
-    }
-  )
+    },
+  ),
 );
 
 /* Selectors */
@@ -347,6 +354,7 @@ export const selectLoading = (state: MyStore) => state.loading;
 React Query handles server state management with automatic caching, background refetching, and optimistic updates.
 
 **Key Features:**
+
 - ✅ Automatic caching
 - ✅ Background refetching
 - ✅ Optimistic updates
@@ -365,10 +373,10 @@ import { QueryClientConfig } from "@tanstack/react-query";
 export const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,      // 5 minutes
-      gcTime: 1000 * 60 * 10,        // 10 minutes (formerly cacheTime)
-      retry: 3,                       // Retry failed requests 3 times
-      refetchOnWindowFocus: false,    // Don't refetch on window focus
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes (formerly cacheTime)
+      retry: 3, // Retry failed requests 3 times
+      refetchOnWindowFocus: false, // Don't refetch on window focus
     },
   },
 };
@@ -385,9 +393,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <ReactQueryProvider>
-          {children}
-        </ReactQueryProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
@@ -399,14 +405,14 @@ export default function RootLayout({ children }) {
 #### Basic Query (GET)
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import { internalAPI } from '@/lib/http/internal-api';
+import { useQuery } from "@tanstack/react-query";
+import { internalAPI } from "@/lib/http/internal-api";
 
 function UserList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
-      const response = await internalAPI.get('/users');
+      const response = await internalAPI.get("/users");
       return response.data;
     },
   });
@@ -416,7 +422,9 @@ function UserList() {
 
   return (
     <div>
-      {data.map(user => <UserCard key={user.id} user={user} />)}
+      {data.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
     </div>
   );
 }
@@ -427,7 +435,7 @@ function UserList() {
 ```tsx
 function UserProfile({ userId }: { userId: string }) {
   const { data: user } = useQuery({
-    queryKey: ['users', userId], // Include params in key
+    queryKey: ["users", userId], // Include params in key
     queryFn: async () => {
       const response = await internalAPI.get(`/users/${userId}`);
       return response.data;
@@ -442,21 +450,21 @@ function UserProfile({ userId }: { userId: string }) {
 #### Mutation (POST/PUT/DELETE)
 
 ```tsx
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 function CreateUserForm() {
   const queryClient = useQueryClient();
 
   const createUser = useMutation({
     mutationFn: async (data: CreateUserDto) => {
-      const response = await internalAPI.post('/users', data);
+      const response = await internalAPI.post("/users", data);
       return response.data;
     },
     onSuccess: () => {
       // Invalidate and refetch users list
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('User created successfully!');
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User created successfully!");
     },
     onError: (error) => {
       toast.error(error.message);
@@ -471,7 +479,7 @@ function CreateUserForm() {
     <form onSubmit={handleSubmit}>
       {/* Form fields */}
       <button type="submit" disabled={createUser.isPending}>
-        {createUser.isPending ? 'Creating...' : 'Create User'}
+        {createUser.isPending ? "Creating..." : "Create User"}
       </button>
     </form>
   );
@@ -490,13 +498,13 @@ function LikeButton({ postId }: { postId: string }) {
     },
     onMutate: async (postId) => {
       // Cancel outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['posts', postId] });
+      await queryClient.cancelQueries({ queryKey: ["posts", postId] });
 
       // Snapshot previous value
-      const previousPost = queryClient.getQueryData(['posts', postId]);
+      const previousPost = queryClient.getQueryData(["posts", postId]);
 
       // Optimistically update
-      queryClient.setQueryData(['posts', postId], (old: any) => ({
+      queryClient.setQueryData(["posts", postId], (old: any) => ({
         ...old,
         likes: old.likes + 1,
       }));
@@ -505,12 +513,12 @@ function LikeButton({ postId }: { postId: string }) {
     },
     onError: (err, postId, context) => {
       // Rollback on error
-      queryClient.setQueryData(['posts', postId], context?.previousPost);
-      toast.error('Failed to like post');
+      queryClient.setQueryData(["posts", postId], context?.previousPost);
+      toast.error("Failed to like post");
     },
     onSettled: (postId) => {
       // Refetch to ensure consistency
-      queryClient.invalidateQueries({ queryKey: ['posts', postId] });
+      queryClient.invalidateQueries({ queryKey: ["posts", postId] });
     },
   });
 
@@ -525,9 +533,9 @@ function PostList() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['posts', page],
+    queryKey: ["posts", page],
     queryFn: async () => {
-      const response = await internalAPI.get('/posts', {
+      const response = await internalAPI.get("/posts", {
         params: { page, pageSize: 10 },
       });
       return response.data;
@@ -537,7 +545,9 @@ function PostList() {
 
   return (
     <div>
-      {data?.posts.map(post => <PostCard key={post.id} post={post} />)}
+      {data?.posts.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
       <button onClick={() => setPage(page - 1)} disabled={page === 1}>
         Previous
       </button>
@@ -550,35 +560,31 @@ function PostList() {
 #### Infinite Scroll
 
 ```tsx
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 function InfinitePostList() {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['posts'],
-    queryFn: async ({ pageParam = 1 }) => {
-      const response = await internalAPI.get('/posts', {
-        params: { page: pageParam },
-      });
-      return response.data;
-    },
-    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
-    initialPageParam: 1,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["posts"],
+      queryFn: async ({ pageParam = 1 }) => {
+        const response = await internalAPI.get("/posts", {
+          params: { page: pageParam },
+        });
+        return response.data;
+      },
+      getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
+      initialPageParam: 1,
+    });
 
   return (
     <div>
-      {data?.pages.map((page) => (
-        page.posts.map(post => <PostCard key={post.id} post={post} />)
-      ))}
-      
+      {data?.pages.map((page) =>
+        page.posts.map((post) => <PostCard key={post.id} post={post} />),
+      )}
+
       {hasNextPage && (
         <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? 'Loading...' : 'Load More'}
+          {isFetchingNextPage ? "Loading..." : "Load More"}
         </button>
       )}
     </div>
@@ -593,11 +599,11 @@ Create service files that encapsulate API calls:
 **File:** `lib/services/user.service.ts`
 
 ```typescript
-import { internalAPI } from '@/lib/http/internal-api';
+import { internalAPI } from "@/lib/http/internal-api";
 
 export const userService = {
   async getAll() {
-    const response = await internalAPI.get('/users');
+    const response = await internalAPI.get("/users");
     return response.data;
   },
 
@@ -607,7 +613,7 @@ export const userService = {
   },
 
   async create(data: CreateUserDto) {
-    const response = await internalAPI.post('/users', data);
+    const response = await internalAPI.post("/users", data);
     return response.data;
   },
 
@@ -625,16 +631,22 @@ export const userService = {
 **Usage in component:**
 
 ```tsx
-import { useQuery } from '@tanstack/react-query';
-import { userService } from '@/lib/services/user.service';
+import { useQuery } from "@tanstack/react-query";
+import { userService } from "@/lib/services/user.service";
 
 function UserList() {
   const { data: users } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: userService.getAll,
   });
 
-  return <div>{users?.map(user => <UserCard user={user} />)}</div>;
+  return (
+    <div>
+      {users?.map((user) => (
+        <UserCard user={user} />
+      ))}
+    </div>
+  );
 }
 ```
 
@@ -647,6 +659,7 @@ function UserList() {
 Sonner is a beautiful, lightweight toast notification library with excellent theme support.
 
 **Key Features:**
+
 - ✅ Multiple toast types (success, error, info, warning)
 - ✅ Promise-based toasts
 - ✅ Custom icons
@@ -666,39 +679,39 @@ import { Toaster } from "@/components/ui/sonner";
   richColors
   closeButton
   visibleToasts={5}
-/>
+/>;
 ```
 
 ### Basic Usage
 
 ```tsx
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 // Simple toast
-toast('Event has been created');
+toast("Event has been created");
 
 // Success toast
-toast.success('User created successfully');
+toast.success("User created successfully");
 
 // Error toast
-toast.error('Failed to create user');
+toast.error("Failed to create user");
 
 // Info toast
-toast.info('Please check your email');
+toast.info("Please check your email");
 
 // Warning toast
-toast.warning('This action cannot be undone');
+toast.warning("This action cannot be undone");
 ```
 
 ### Toast Options
 
 ```tsx
-toast.success('Profile updated', {
-  description: 'Your changes have been saved',
+toast.success("Profile updated", {
+  description: "Your changes have been saved",
   duration: 5000,
   action: {
-    label: 'Undo',
-    onClick: () => console.log('Undo'),
+    label: "Undo",
+    onClick: () => console.log("Undo"),
   },
 });
 ```
@@ -708,18 +721,15 @@ toast.success('Profile updated', {
 Perfect for async operations:
 
 ```tsx
-import { toast } from 'sonner';
-import { internalAPI } from '@/lib/http/internal-api';
+import { toast } from "sonner";
+import { internalAPI } from "@/lib/http/internal-api";
 
 async function createUser(data: CreateUserDto) {
-  toast.promise(
-    internalAPI.post('/users', data),
-    {
-      loading: 'Creating user...',
-      success: (response) => `User ${response.data.name} created!`,
-      error: 'Failed to create user',
-    }
-  );
+  toast.promise(internalAPI.post("/users", data), {
+    loading: "Creating user...",
+    success: (response) => `User ${response.data.name} created!`,
+    error: "Failed to create user",
+  });
 }
 ```
 
@@ -760,8 +770,8 @@ export const toastMessages = {
 **Usage:**
 
 ```tsx
-import { toast } from 'sonner';
-import { toastMessages } from '@/shared/constants/toast-messages';
+import { toast } from "sonner";
+import { toastMessages } from "@/shared/constants/toast-messages";
 
 toast.success(toastMessages.success.userCreated);
 toast.error(toastMessages.error.networkError);
@@ -770,7 +780,7 @@ toast.error(toastMessages.error.networkError);
 ### Custom Toast Component
 
 ```tsx
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 function CustomToast() {
   return (
@@ -791,20 +801,20 @@ toast(<CustomToast />);
 ### Integration with Forms
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 function LoginForm() {
   const { handleSubmit, register } = useForm();
 
   async function onSubmit(data: LoginDto) {
     try {
-      await internalAPI.post('/auth/login', data);
-      toast.success('Login successful!', {
-        description: 'Welcome back!',
+      await internalAPI.post("/auth/login", data);
+      toast.success("Login successful!", {
+        description: "Welcome back!",
       });
     } catch (error) {
-      toast.error('Login failed', {
+      toast.error("Login failed", {
         description: error.message,
       });
     }
@@ -843,16 +853,14 @@ export const APP_PATHS = {
 ### Using in Components
 
 ```tsx
-import { APP_PATHS } from '@/shared/constants/paths';
-import { useRouter } from 'next/navigation';
+import { APP_PATHS } from "@/shared/constants/paths";
+import { useRouter } from "next/navigation";
 
 function LoginButton() {
   const router = useRouter();
 
   return (
-    <button onClick={() => router.push(APP_PATHS.AUTH.LOGIN)}>
-      Login
-    </button>
+    <button onClick={() => router.push(APP_PATHS.AUTH.LOGIN)}>Login</button>
   );
 }
 ```
@@ -860,8 +868,8 @@ function LoginButton() {
 ### Using in Links
 
 ```tsx
-import Link from 'next/link';
-import { APP_PATHS } from '@/shared/constants/paths';
+import Link from "next/link";
+import { APP_PATHS } from "@/shared/constants/paths";
 
 function Navigation() {
   return (
@@ -900,13 +908,13 @@ export const APP_PATHS = {
 **Usage:**
 
 ```tsx
-import { APP_PATHS } from '@/shared/constants/paths';
+import { APP_PATHS } from "@/shared/constants/paths";
 
 // Navigate to user detail page
-router.push(APP_PATHS.USERS.DETAIL('123'));
+router.push(APP_PATHS.USERS.DETAIL("123"));
 
 // Navigate to post detail page
-router.push(APP_PATHS.POSTS.DETAIL('my-first-post'));
+router.push(APP_PATHS.POSTS.DETAIL("my-first-post"));
 ```
 
 ### API Paths
@@ -934,14 +942,14 @@ export const API_PATHS = {
 **Usage:**
 
 ```tsx
-import { API_PATHS } from '@/shared/constants/paths';
-import { internalAPI } from '@/lib/http/internal-api';
+import { API_PATHS } from "@/shared/constants/paths";
+import { internalAPI } from "@/lib/http/internal-api";
 
 // Get user
-const user = await internalAPI.get(API_PATHS.USERS.DETAIL('123'));
+const user = await internalAPI.get(API_PATHS.USERS.DETAIL("123"));
 
 // Update user
-await internalAPI.put(API_PATHS.USERS.UPDATE('123'), data);
+await internalAPI.put(API_PATHS.USERS.UPDATE("123"), data);
 ```
 
 ---
@@ -953,17 +961,17 @@ await internalAPI.put(API_PATHS.USERS.UPDATE('123'), data);
 Use Zustand for UI state, React Query for server state:
 
 ```tsx
-import { useAuthStore } from '@/stores';
-import { useQuery } from '@tanstack/react-query';
-import { userService } from '@/lib/services/user.service';
+import { useAuthStore } from "@/stores";
+import { useQuery } from "@tanstack/react-query";
+import { userService } from "@/lib/services/user.service";
 
 function Dashboard() {
   // Client state (Zustand)
   const { user } = useAuthStore();
-  
+
   // Server state (React Query)
   const { data: stats } = useQuery({
-    queryKey: ['stats', user?.id],
+    queryKey: ["stats", user?.id],
     queryFn: () => userService.getStats(user!.id),
     enabled: !!user,
   });
@@ -979,7 +987,7 @@ const createUser = useMutation({
   mutationFn: userService.create,
   onSuccess: () => {
     toast.success(toastMessages.success.userCreated);
-    queryClient.invalidateQueries({ queryKey: ['users'] });
+    queryClient.invalidateQueries({ queryKey: ["users"] });
   },
   onError: (error) => {
     toast.error(error.message);
@@ -991,17 +999,17 @@ const createUser = useMutation({
 
 ```tsx
 // ❌ Bad - hardcoded strings
-router.push('/users/123/edit');
+router.push("/users/123/edit");
 
 // ✅ Good - using constants
-router.push(APP_PATHS.USERS.EDIT('123'));
+router.push(APP_PATHS.USERS.EDIT("123"));
 ```
 
 ### 4. Centralize Toast Messages
 
 ```tsx
 // ❌ Bad - inline strings
-toast.success('User created successfully');
+toast.success("User created successfully");
 
 // ✅ Good - using constants
 toast.success(toastMessages.success.userCreated);
@@ -1024,13 +1032,13 @@ const user = useAuthStore(selectUser);
 ### Example 1: Complete Authentication Flow
 
 ```tsx
-import { useAuthStore } from '@/stores';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { APP_PATHS } from '@/shared/constants/paths';
-import { toastMessages } from '@/shared/constants/toast-messages';
-import { internalAPI } from '@/lib/http/internal-api';
-import { useRouter } from 'next/navigation';
+import { useAuthStore } from "@/stores";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { APP_PATHS } from "@/shared/constants/paths";
+import { toastMessages } from "@/shared/constants/toast-messages";
+import { internalAPI } from "@/lib/http/internal-api";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
   const router = useRouter();
@@ -1038,12 +1046,12 @@ function LoginPage() {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginDto) => {
-      const response = await internalAPI.post('/auth/login', data);
+      const response = await internalAPI.post("/auth/login", data);
       return response.data;
     },
     onSuccess: (data) => {
       login(data.user);
-      toast.success('Login successful!');
+      toast.success("Login successful!");
       router.push(APP_PATHS.BASE);
     },
     onError: (error) => {
@@ -1067,11 +1075,11 @@ function LoginPage() {
 ### Example 2: User Management with All Features
 
 ```tsx
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useUIStore } from '@/stores';
-import { toast } from 'sonner';
-import { APP_PATHS } from '@/shared/constants/paths';
-import { userService } from '@/lib/services/user.service';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useUIStore } from "@/stores";
+import { toast } from "sonner";
+import { APP_PATHS } from "@/shared/constants/paths";
+import { userService } from "@/lib/services/user.service";
 
 function UserManagement() {
   const queryClient = useQueryClient();
@@ -1079,7 +1087,7 @@ function UserManagement() {
 
   // Fetch users
   const { data: users, isLoading } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: userService.getAll,
   });
 
@@ -1087,8 +1095,8 @@ function UserManagement() {
   const deleteMutation = useMutation({
     mutationFn: userService.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('User deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success("User deleted successfully");
       closeModal();
     },
     onError: (error) => {
@@ -1105,7 +1113,7 @@ function UserManagement() {
           Confirm Delete
         </button>
         <button onClick={closeModal}>Cancel</button>
-      </div>
+      </div>,
     );
   }
 
@@ -1113,7 +1121,7 @@ function UserManagement() {
 
   return (
     <div>
-      {users?.map(user => (
+      {users?.map((user) => (
         <div key={user.id}>
           <span>{user.name}</span>
           <button onClick={() => handleDeleteClick(user.id, user.name)}>
@@ -1129,24 +1137,21 @@ function UserManagement() {
 ### Example 3: Form with Toast Notifications
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'sonner';
-import { toastMessages } from '@/shared/constants/toast-messages';
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { toastMessages } from "@/shared/constants/toast-messages";
 
 function CreatePostForm() {
   const { handleSubmit, register, reset } = useForm();
 
   const createPost = useMutation({
     mutationFn: async (data: CreatePostDto) => {
-      return toast.promise(
-        internalAPI.post('/posts', data),
-        {
-          loading: 'Creating post...',
-          success: (response) => `Post "${response.data.title}" created!`,
-          error: 'Failed to create post',
-        }
-      );
+      return toast.promise(internalAPI.post("/posts", data), {
+        loading: "Creating post...",
+        success: (response) => `Post "${response.data.title}" created!`,
+        error: "Failed to create post",
+      });
     },
     onSuccess: () => {
       reset();
@@ -1155,8 +1160,8 @@ function CreatePostForm() {
 
   return (
     <form onSubmit={handleSubmit((data) => createPost.mutate(data))}>
-      <input {...register('title')} />
-      <textarea {...register('content')} />
+      <input {...register("title")} />
+      <textarea {...register("content")} />
       <button type="submit" disabled={createPost.isPending}>
         Create Post
       </button>

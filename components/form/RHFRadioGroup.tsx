@@ -21,25 +21,25 @@ export interface RadioOption {
  * RHFRadioGroup Component
  * A radio button group integrated with React Hook Form
  * Uses Controller internally - form values update automatically
- * 
+ *
  * @example
  * ```tsx
  * <Field.RadioGroup
  *   name="paymentMethod"
  *   label="Select payment method"
  *   options={[
- *     { 
- *       label: "Credit Card", 
+ *     {
+ *       label: "Credit Card",
  *       value: "credit_card",
  *       description: "Pay with your credit or debit card"
  *     },
- *     { 
- *       label: "PayPal", 
+ *     {
+ *       label: "PayPal",
  *       value: "paypal",
  *       description: "Pay with your PayPal account"
  *     },
- *     { 
- *       label: "Bank Transfer", 
+ *     {
+ *       label: "Bank Transfer",
  *       value: "bank_transfer",
  *       description: "Direct bank transfer"
  *     },
@@ -98,11 +98,19 @@ export function RHFRadioGroup<T extends FieldValues>({
           onChangeSideEffect?.(optionValue);
         };
 
-        const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+        const bgClass = getThemeClasses(
+          "bg-white",
+          "bg-gray-950",
+          currentTheme,
+        );
         const borderClass = hasError
           ? getThemeClasses("border-red-500", "border-red-400", currentTheme)
           : getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-        const emptyTextClass = getThemeClasses("text-gray-400", "text-gray-600", currentTheme);
+        const emptyTextClass = getThemeClasses(
+          "text-gray-400",
+          "text-gray-600",
+          currentTheme,
+        );
 
         return (
           <FormItem name={name} className={className}>
@@ -110,32 +118,68 @@ export function RHFRadioGroup<T extends FieldValues>({
 
             <div
               className={`${
-                horizontal
-                  ? "flex flex-wrap gap-4"
-                  : "space-y-3"
+                horizontal ? "flex flex-wrap gap-4" : "space-y-3"
               } p-4 ${bgClass} border ${borderClass} rounded-lg`}
             >
               {options.length === 0 ? (
-                <div className={`${emptyTextClass} text-sm`}>No options available</div>
+                <div className={`${emptyTextClass} text-sm`}>
+                  No options available
+                </div>
               ) : (
                 options.map((option) => {
                   const isChecked = field.value === option.value;
                   const isDisabled = disabled || option.disabled;
 
-                  const radioBgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
+                  const radioBgClass = getThemeClasses(
+                    "bg-white",
+                    "bg-gray-950",
+                    currentTheme,
+                  );
                   const radioBorderClass = isDisabled
-                    ? getThemeClasses("border-gray-200", "border-gray-800", currentTheme)
-                    : getThemeClasses("border-gray-300", "border-gray-700", currentTheme);
-                  const checkedBorderClass = getThemeClasses("checked:border-gray-900", "checked:border-white", currentTheme);
-                  const ringClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
+                    ? getThemeClasses(
+                        "border-gray-200",
+                        "border-gray-800",
+                        currentTheme,
+                      )
+                    : getThemeClasses(
+                        "border-gray-300",
+                        "border-gray-700",
+                        currentTheme,
+                      );
+                  const checkedBorderClass = getThemeClasses(
+                    "checked:border-gray-900",
+                    "checked:border-white",
+                    currentTheme,
+                  );
+                  const ringClass = getThemeClasses(
+                    "focus:ring-gray-900",
+                    "focus:ring-gray-100",
+                    currentTheme,
+                  );
                   const hoverBorderClass = !isDisabled
-                    ? getThemeClasses("hover:border-gray-400", "hover:border-gray-600", currentTheme)
+                    ? getThemeClasses(
+                        "hover:border-gray-400",
+                        "hover:border-gray-600",
+                        currentTheme,
+                      )
                     : "";
                   const dotBgClass = isDisabled
-                    ? getThemeClasses("bg-gray-400", "bg-gray-600", currentTheme)
+                    ? getThemeClasses(
+                        "bg-gray-400",
+                        "bg-gray-600",
+                        currentTheme,
+                      )
                     : getThemeClasses("bg-gray-900", "bg-white", currentTheme);
-                  const labelTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-                  const descriptionTextClass = getThemeClasses("text-gray-500", "text-gray-400", currentTheme);
+                  const labelTextClass = getThemeClasses(
+                    "text-gray-900",
+                    "text-gray-100",
+                    currentTheme,
+                  );
+                  const descriptionTextClass = getThemeClasses(
+                    "text-gray-500",
+                    "text-gray-400",
+                    currentTheme,
+                  );
 
                   return (
                     <div
@@ -157,16 +201,14 @@ export function RHFRadioGroup<T extends FieldValues>({
                           />
                           <div
                             className={`absolute w-2 h-2 rounded-full pointer-events-none ${dotBgClass} opacity-0 peer-checked:opacity-100 transition-opacity`}
-                            style={{ left: '4px' }}
+                            style={{ left: "4px" }}
                           />
                         </div>
                         <div className="flex-1">
                           <label
                             htmlFor={`${name}-${option.value}`}
                             className={`text-sm font-medium leading-none cursor-pointer select-none ${labelTextClass} ${
-                              isDisabled
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
+                              isDisabled ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                           >
                             {option.label}

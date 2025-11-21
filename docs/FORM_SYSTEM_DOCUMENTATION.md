@@ -1,6 +1,7 @@
 # React Hook Form Component System - Complete Documentation
 
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Installation & Setup](#installation--setup)
 3. [Core Concepts](#core-concepts)
@@ -19,6 +20,7 @@
 This is a comprehensive, production-ready React Hook Form component system built with TypeScript, Tailwind CSS, and Next.js. It provides a complete set of form components with built-in validation, error handling, dark mode support, and a clean API.
 
 ### Key Features
+
 - ✅ **Type-safe** - Full TypeScript support with generics
 - ✅ **Zero boilerplate** - Automatic form integration, no manual onChange needed
 - ✅ **Dark mode ready** - Built-in theme support with next-themes
@@ -31,12 +33,14 @@ This is a comprehensive, production-ready React Hook Form component system built
 ## Installation & Setup
 
 ### Prerequisites
+
 ```bash
 npm install react-hook-form
 npm install next-themes  # For dark mode support
 ```
 
 ### File Structure
+
 ```
 components/form/
 ├── Form.tsx                           # Main form wrapper
@@ -61,6 +65,7 @@ components/form/
 ### Basic Setup
 
 1. **Wrap your app with ThemeProvider** (in `app/layout.tsx`):
+
 ```tsx
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -68,9 +73,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
@@ -78,6 +81,7 @@ export default function RootLayout({ children }) {
 ```
 
 2. **Import form components**:
+
 ```tsx
 import { useForm } from "react-hook-form";
 import { Form, Field } from "@/components/form";
@@ -113,7 +117,7 @@ All components use React Hook Form's `Controller` internally - **no manual onCha
 
 ```tsx
 // ❌ DON'T DO THIS (manual management)
-<input 
+<input
   value={email}
   onChange={(e) => setEmail(e.target.value)}
 />
@@ -132,7 +136,7 @@ Use the `name` prop to match your form schema. TypeScript will autocomplete avai
 
 ```tsx
 <Field.Input
-  name="email"  // ← TypeScript knows this field exists
+  name="email" // ← TypeScript knows this field exists
   type="email"
   label="Email Address"
 />
@@ -166,6 +170,7 @@ function MyForm() {
 ```
 
 **Props:**
+
 - `form` - React Hook Form instance (required)
 - `onSubmit` - Submit handler (required)
 - `className` - Additional CSS classes
@@ -180,6 +185,7 @@ function MyForm() {
 Handles multiple input types through a single interface.
 
 #### Text Input
+
 ```tsx
 <Field.Input
   name="firstName"
@@ -192,6 +198,7 @@ Handles multiple input types through a single interface.
 ```
 
 #### Email Input
+
 ```tsx
 <Field.Input
   name="email"
@@ -203,13 +210,14 @@ Handles multiple input types through a single interface.
 ```
 
 #### Password Input (with show/hide toggle)
+
 ```tsx
 <Field.Input
   name="password"
   type="password"
   label="Password"
   placeholder="Enter password"
-  showPasswordToggle={true}  // Default: true
+  showPasswordToggle={true} // Default: true
   required
   helperText="Must be at least 8 characters"
 />
@@ -218,6 +226,7 @@ Handles multiple input types through a single interface.
 Set `showPasswordToggle={false}` to disable the eye icon.
 
 #### Number Input
+
 ```tsx
 <Field.Input
   name="age"
@@ -231,6 +240,7 @@ Set `showPasswordToggle={false}` to disable the eye icon.
 ```
 
 #### Phone Input
+
 ```tsx
 <Field.Input
   name="phone"
@@ -241,16 +251,13 @@ Set `showPasswordToggle={false}` to disable the eye icon.
 ```
 
 #### Date Input
+
 ```tsx
-<Field.Input
-  name="birthDate"
-  type="date"
-  label="Birth Date"
-  required
-/>
+<Field.Input name="birthDate" type="date" label="Birth Date" required />
 ```
 
 #### DateTime Input
+
 ```tsx
 <Field.Input
   name="appointmentTime"
@@ -261,18 +268,20 @@ Set `showPasswordToggle={false}` to disable the eye icon.
 ```
 
 #### OTP Input (Shadcn-style individual boxes)
+
 ```tsx
 <Field.Input
   name="verificationCode"
   type="otp"
   label="Verification Code"
-  otpLength={6}  // Default: 6
+  otpLength={6} // Default: 6
   pattern="[0-9]*"
   helperText="Enter the 6-digit code sent to your email"
 />
 ```
 
 Features:
+
 - Individual character boxes (like shadcn)
 - Auto-focuses next box on entry
 - Backspace navigates to previous box
@@ -281,6 +290,7 @@ Features:
 - Always uses static label (not floating)
 
 #### Textarea
+
 ```tsx
 <Field.Input
   name="bio"
@@ -293,6 +303,7 @@ Features:
 ```
 
 #### Rich Text Editor
+
 ```tsx
 <Field.Input
   name="content"
@@ -312,6 +323,7 @@ Features:
 Custom dropdown component (not native `<select>`).
 
 #### Single Select
+
 ```tsx
 <Field.Select
   name="country"
@@ -328,6 +340,7 @@ Custom dropdown component (not native `<select>`).
 ```
 
 #### Multi-Select
+
 ```tsx
 <Field.Select
   name="skills"
@@ -338,12 +351,13 @@ Custom dropdown component (not native `<select>`).
     { label: "Node.js", value: "nodejs" },
   ]}
   isMulti
-  maxSelect={3}  // Optional: limit selections
+  maxSelect={3} // Optional: limit selections
   helperText="Select up to 3 skills"
 />
 ```
 
 #### Disabled Options
+
 ```tsx
 <Field.Select
   name="role"
@@ -393,6 +407,7 @@ Custom dropdown component (not native `<select>`).
 ```
 
 With disabled options:
+
 ```tsx
 <Field.CheckboxGroup
   name="features"
@@ -421,12 +436,13 @@ For large lists of options with search functionality.
     // ... many more options
   ]}
   placeholder="Search languages..."
-  maxHeight="300px"  // Scrollable height
+  maxHeight="300px" // Scrollable height
   helperText="Search and select languages you know"
 />
 ```
 
 Features:
+
 - Search input to filter options
 - "Select All" and "Clear All" buttons
 - Shows count of selected items
@@ -451,6 +467,7 @@ Features:
 ```
 
 #### Horizontal Layout
+
 ```tsx
 <Field.RadioGroup
   name="preference"
@@ -461,6 +478,7 @@ Features:
 ```
 
 #### With Descriptions
+
 ```tsx
 <Field.RadioGroup
   name="paymentMethod"
@@ -488,6 +506,7 @@ Features:
 Three upload styles: `default`, `avatar`, `button`.
 
 #### Default Style (Drop Zone)
+
 ```tsx
 <Field.Upload
   name="documents"
@@ -495,36 +514,39 @@ Three upload styles: `default`, `avatar`, `button`.
   accept=".pdf,.doc,.docx"
   multiple
   maxFiles={3}
-  maxSize={10 * 1024 * 1024}  // 10MB per file
+  maxSize={10 * 1024 * 1024} // 10MB per file
   showPreview
   helperText="Upload up to 3 documents"
 />
 ```
 
 #### Avatar Style (Circular Profile Picture)
+
 ```tsx
 <Field.Upload
   name="avatar"
   uploadStyle="avatar"
   label="Profile Picture"
   accept="image/*"
-  maxSize={5 * 1024 * 1024}  // 5MB
+  maxSize={5 * 1024 * 1024} // 5MB
   showPreview
 />
 ```
 
 #### Button Style (Simple Button)
+
 ```tsx
 <Field.Upload
   name="resume"
   uploadStyle="button"
   label="Resume"
   accept=".pdf"
-  maxSize={2 * 1024 * 1024}  // 2MB
+  maxSize={2 * 1024 * 1024} // 2MB
 />
 ```
 
 #### With Side Effects
+
 ```tsx
 <Field.Upload
   name="avatar"
@@ -565,6 +587,7 @@ By default, inputs use floating labels. When you supply a `placeholder`, the lab
 ```
 
 **Label behavior:**
+
 - No placeholder: Label floats on focus or when field has value
 - With placeholder: Label always floats (to show placeholder)
 - OTP inputs: Always use static label
@@ -619,8 +642,8 @@ const form = useForm<FormData>({
   name="email"
   type="email"
   label="Email"
-  required  // Basic HTML5 validation
-/>
+  required // Basic HTML5 validation
+/>;
 ```
 
 For advanced validation, use a schema library (Zod, Yup):
@@ -652,12 +675,14 @@ Error messages automatically appear below the field.
 All components support light and dark modes out of the box.
 
 #### System Theme (Automatic)
+
 ```tsx
 // Uses system theme by default
 <Field.Input name="email" label="Email" />
 ```
 
 #### Force Specific Theme
+
 ```tsx
 // Force light mode for this field
 <Field.Input
@@ -696,12 +721,14 @@ function MyPage() {
 The components use these Tailwind colors:
 
 **Light Mode:**
+
 - Background: `bg-white`
 - Text: `text-gray-900`
 - Border: `border-gray-200`
 - Focus: `ring-gray-900`
 
 **Dark Mode:**
+
 - Background: `bg-gray-950`
 - Text: `text-gray-100`
 - Border: `border-gray-800`
@@ -725,7 +752,7 @@ interface FormData {
 const form = useForm<FormData>({ defaultValues: { email: "", password: "" } });
 
 // ❌ Bad
-const form = useForm();  // No type safety
+const form = useForm(); // No type safety
 ```
 
 ### 2. Provide Default Values
@@ -741,7 +768,7 @@ const form = useForm<FormData>({
 });
 
 // ❌ Bad
-const form = useForm<FormData>();  // Fields start as undefined
+const form = useForm<FormData>(); // Fields start as undefined
 ```
 
 ### 3. Use Helper Text for Clarity
@@ -768,12 +795,12 @@ const form = useForm<FormData>();  // Fields start as undefined
 ```tsx
 <section className="space-y-4">
   <h2>Personal Information</h2>
-  
+
   <div className="grid grid-cols-2 gap-4">
     <Field.Input name="firstName" label="First Name" />
     <Field.Input name="lastName" label="Last Name" />
   </div>
-  
+
   <Field.Input name="email" type="email" label="Email" />
 </section>
 ```
@@ -817,77 +844,77 @@ const onSubmit = async (data: FormData) => {
 
 ### Common Props (All Components)
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `Path<T>` | Required | Field name matching form schema |
-| `label` | `string` | - | Label text displayed above/around field |
-| `helperText` | `string` | - | Helper text displayed below field |
-| `required` | `boolean` | `false` | Whether field is required |
-| `disabled` | `boolean` | `false` | Whether field is disabled |
-| `className` | `string` | - | Additional CSS classes |
-| `theme` | `"light" \| "dark"` | System | Force specific theme |
+| Prop         | Type                | Default  | Description                             |
+| ------------ | ------------------- | -------- | --------------------------------------- |
+| `name`       | `Path<T>`           | Required | Field name matching form schema         |
+| `label`      | `string`            | -        | Label text displayed above/around field |
+| `helperText` | `string`            | -        | Helper text displayed below field       |
+| `required`   | `boolean`           | `false`  | Whether field is required               |
+| `disabled`   | `boolean`           | `false`  | Whether field is disabled               |
+| `className`  | `string`            | -        | Additional CSS classes                  |
+| `theme`      | `"light" \| "dark"` | System   | Force specific theme                    |
 
 ### Field.Input Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `UniversalInputType` | `"text"` | Input type (text, email, password, etc.) |
-| `placeholder` | `string` | - | Placeholder text |
-| `rows` | `number` | `4` | Textarea rows |
-| `otpLength` | `number` | `6` | OTP character count |
-| `pattern` | `string` | `"[0-9]*"` | OTP validation pattern |
-| `min` | `number` | - | Number input minimum |
-| `max` | `number` | - | Number input maximum |
-| `step` | `number` | - | Number input step |
-| `labelMode` | `"floating" \| "static"` | `"floating"` | Label position mode |
-| `showPasswordToggle` | `boolean` | `true` | Show/hide password toggle |
-| `onChangeSideEffect` | `(value: any) => void` | - | Side effect callback |
+| Prop                 | Type                     | Default      | Description                              |
+| -------------------- | ------------------------ | ------------ | ---------------------------------------- |
+| `type`               | `UniversalInputType`     | `"text"`     | Input type (text, email, password, etc.) |
+| `placeholder`        | `string`                 | -            | Placeholder text                         |
+| `rows`               | `number`                 | `4`          | Textarea rows                            |
+| `otpLength`          | `number`                 | `6`          | OTP character count                      |
+| `pattern`            | `string`                 | `"[0-9]*"`   | OTP validation pattern                   |
+| `min`                | `number`                 | -            | Number input minimum                     |
+| `max`                | `number`                 | -            | Number input maximum                     |
+| `step`               | `number`                 | -            | Number input step                        |
+| `labelMode`          | `"floating" \| "static"` | `"floating"` | Label position mode                      |
+| `showPasswordToggle` | `boolean`                | `true`       | Show/hide password toggle                |
+| `onChangeSideEffect` | `(value: any) => void`   | -            | Side effect callback                     |
 
 ### Field.Select Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `options` | `SelectOption[]` | Required | Array of options |
-| `placeholder` | `string` | - | Placeholder text |
-| `isMulti` | `boolean` | `false` | Enable multi-select |
-| `maxSelect` | `number` | - | Max selections (multi-select) |
-| `onChangeSideEffect` | `(value: any) => void` | - | Side effect callback |
+| Prop                 | Type                   | Default  | Description                   |
+| -------------------- | ---------------------- | -------- | ----------------------------- |
+| `options`            | `SelectOption[]`       | Required | Array of options              |
+| `placeholder`        | `string`               | -        | Placeholder text              |
+| `isMulti`            | `boolean`              | `false`  | Enable multi-select           |
+| `maxSelect`          | `number`               | -        | Max selections (multi-select) |
+| `onChangeSideEffect` | `(value: any) => void` | -        | Side effect callback          |
 
 ### Field.CheckboxGroup Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `options` | `CheckboxOption[]` | Required | Array of checkbox options |
-| `onChangeSideEffect` | `(values: any[]) => void` | - | Side effect callback |
+| Prop                 | Type                      | Default  | Description               |
+| -------------------- | ------------------------- | -------- | ------------------------- |
+| `options`            | `CheckboxOption[]`        | Required | Array of checkbox options |
+| `onChangeSideEffect` | `(values: any[]) => void` | -        | Side effect callback      |
 
 ### Field.SearchableCheckboxGroup Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `options` | `CheckboxOption[]` | Required | Array of checkbox options |
-| `placeholder` | `string` | `"Search..."` | Search input placeholder |
-| `maxHeight` | `string` | `"300px"` | Max height of scrollable list |
-| `onChangeSideEffect` | `(values: any[]) => void` | - | Side effect callback |
+| Prop                 | Type                      | Default       | Description                   |
+| -------------------- | ------------------------- | ------------- | ----------------------------- |
+| `options`            | `CheckboxOption[]`        | Required      | Array of checkbox options     |
+| `placeholder`        | `string`                  | `"Search..."` | Search input placeholder      |
+| `maxHeight`          | `string`                  | `"300px"`     | Max height of scrollable list |
+| `onChangeSideEffect` | `(values: any[]) => void` | -             | Side effect callback          |
 
 ### Field.RadioGroup Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `options` | `RadioOption[]` | Required | Array of radio options |
-| `horizontal` | `boolean` | `false` | Display options horizontally |
-| `onChangeSideEffect` | `(value: any) => void` | - | Side effect callback |
+| Prop                 | Type                   | Default  | Description                  |
+| -------------------- | ---------------------- | -------- | ---------------------------- |
+| `options`            | `RadioOption[]`        | Required | Array of radio options       |
+| `horizontal`         | `boolean`              | `false`  | Display options horizontally |
+| `onChangeSideEffect` | `(value: any) => void` | -        | Side effect callback         |
 
 ### Field.Upload Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `uploadStyle` | `"default" \| "avatar" \| "button"` | `"default"` | Upload UI style |
-| `accept` | `string` | - | Accepted file types |
-| `multiple` | `boolean` | `false` | Allow multiple files |
-| `maxFiles` | `number` | - | Max number of files |
-| `maxSize` | `number` | - | Max file size in bytes |
-| `showPreview` | `boolean` | `false` | Show file preview |
-| `onChangeSideEffect` | `(files: FileList \| null) => void` | - | Side effect callback |
+| Prop                 | Type                                | Default     | Description            |
+| -------------------- | ----------------------------------- | ----------- | ---------------------- |
+| `uploadStyle`        | `"default" \| "avatar" \| "button"` | `"default"` | Upload UI style        |
+| `accept`             | `string`                            | -           | Accepted file types    |
+| `multiple`           | `boolean`                           | `false`     | Allow multiple files   |
+| `maxFiles`           | `number`                            | -           | Max number of files    |
+| `maxSize`            | `number`                            | -           | Max file size in bytes |
+| `showPreview`        | `boolean`                           | `false`     | Show file preview      |
+| `onChangeSideEffect` | `(files: FileList \| null) => void` | -           | Side effect callback   |
 
 ---
 
@@ -941,10 +968,7 @@ export function LoginForm() {
         required
       />
 
-      <Field.Checkbox
-        name="rememberMe"
-        label="Remember me"
-      />
+      <Field.Checkbox name="rememberMe" label="Remember me" />
 
       <button
         type="submit"
@@ -1031,12 +1055,12 @@ export function ProfileForm() {
         showPreview
       />
 
-      <Field.Checkbox
-        name="newsletter"
-        label="Subscribe to newsletter"
-      />
+      <Field.Checkbox name="newsletter" label="Subscribe to newsletter" />
 
-      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+      >
         Update Profile
       </button>
     </Form>
@@ -1050,15 +1074,19 @@ export function ProfileForm() {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-const registrationSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string(),
-  acceptTerms: z.boolean().refine(val => val === true, "You must accept the terms"),
-}).refine(data => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const registrationSchema = z
+  .object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+    acceptTerms: z
+      .boolean()
+      .refine((val) => val === true, "You must accept the terms"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 type RegistrationFormData = z.infer<typeof registrationSchema>;
 
@@ -1109,7 +1137,10 @@ export function RegistrationForm() {
         required
       />
 
-      <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg">
+      <button
+        type="submit"
+        className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg"
+      >
         Register
       </button>
     </Form>
@@ -1127,11 +1158,11 @@ interface MultiStepFormData {
   firstName: string;
   lastName: string;
   email: string;
-  
+
   // Step 2
   country: string;
   phone: string;
-  
+
   // Step 3
   preferences: string[];
   newsletter: boolean;
@@ -1139,7 +1170,7 @@ interface MultiStepFormData {
 
 export function MultiStepForm() {
   const [step, setStep] = useState(1);
-  
+
   const form = useForm<MultiStepFormData>({
     defaultValues: {
       firstName: "",
@@ -1240,6 +1271,7 @@ const form = useForm<FormData>({ defaultValues: { email: "" } });
 **Problem:** Components don't change appearance in dark mode.
 
 **Solution:** Make sure you:
+
 1. Wrapped your app with `ThemeProvider`
 2. Added `darkMode: 'class'` to `tailwind.config.js`
 3. Added `suppressHydrationWarning` to the `<html>` tag
@@ -1253,7 +1285,7 @@ const form = useForm<FormData>({ defaultValues: { email: "" } });
 ```tsx
 const form = useForm<FormData>({
   defaultValues: {
-    verificationCode: "",  // ← Initialize as empty string, not undefined
+    verificationCode: "", // ← Initialize as empty string, not undefined
   },
 });
 ```
@@ -1265,6 +1297,7 @@ const form = useForm<FormData>({
 ### From Standard Inputs
 
 **Before:**
+
 ```tsx
 const [email, setEmail] = useState("");
 
@@ -1273,28 +1306,25 @@ const [email, setEmail] = useState("");
   onChange={(e) => setEmail(e.target.value)}
   type="email"
   placeholder="Email"
-/>
+/>;
 ```
 
 **After:**
+
 ```tsx
 const form = useForm<{ email: string }>({
   defaultValues: { email: "" },
 });
 
 <Form form={form} onSubmit={onSubmit}>
-  <Field.Input
-    name="email"
-    type="email"
-    label="Email"
-    placeholder="Email"
-  />
-</Form>
+  <Field.Input name="email" type="email" label="Email" placeholder="Email" />
+</Form>;
 ```
 
 ### From Material-UI
 
 **Before:**
+
 ```tsx
 <TextField
   label="Email"
@@ -1308,6 +1338,7 @@ const form = useForm<{ email: string }>({
 ```
 
 **After:**
+
 ```tsx
 <Field.Input
   name="email"
@@ -1323,6 +1354,7 @@ const form = useForm<{ email: string }>({
 ## Support
 
 For issues, questions, or feature requests, please refer to:
+
 - React Hook Form docs: https://react-hook-form.com/
 - Next.js docs: https://nextjs.org/docs
 - Tailwind CSS docs: https://tailwindcss.com/docs

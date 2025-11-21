@@ -8,7 +8,7 @@ import { useFormField } from "./FormItem";
  * Provides additional context about the form field
  * Automatically linked via aria-describedby
  * Supports dark mode
- * 
+ *
  * @example
  * ```tsx
  * <FormDescription>

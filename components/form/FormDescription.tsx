@@ -16,8 +16,7 @@ import { useFormField } from "./FormItem";
  * </FormDescription>
  * ```
  */
-interface FormDescriptionProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {
+interface FormDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
 }
 

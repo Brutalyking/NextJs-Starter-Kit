@@ -93,13 +93,39 @@ This script will:
 - ✅ **Cookie Support** - Session management ready
 - ✅ **TypeScript Types** - Full type safety
 
+### 📊 **DataTable Component**
+
+- ✅ **Sortable Columns** - Click-to-sort with visual indicators
+- ✅ **Pagination** - Built-in pagination with customizable page sizes
+- ✅ **Row Selection** - Single or multi-select with checkboxes
+- ✅ **Actions Column** - Dropdown actions for each row
+- ✅ **Empty & Error States** - Beautiful placeholder states
+- ✅ **Loading Skeleton** - Smooth loading experience
+- ✅ **Dark Mode** - Full theme support
+
+### 💬 **Tooltips & Toasts**
+
+- ✅ **Custom Tooltips** - Variant-based (info, success, warning, error)
+- ✅ **Multiple Sizes** - Small, medium, large options
+- ✅ **Positioning** - Top, bottom, left, right with alignment
+- ✅ **Toast Notifications** - Sonner-powered with promise support
+- ✅ **Pre-configured Messages** - Toast message constants
+
+### 📋 **Dropdown Menus**
+
+- ✅ **ActionMenu Component** - Easy-to-use action dropdowns
+- ✅ **Grouped Items** - Organize actions with labels
+- ✅ **Checkbox & Radio** - Selection menus
+- ✅ **Submenus** - Nested dropdown support
+- ✅ **Keyboard Shortcuts** - Display shortcut hints
+- ✅ **Destructive Actions** - Visual warning for dangerous actions
+
 ### 🎯 **Developer Experience**
 
 - ✅ **TypeScript** - Full type safety throughout
 - ✅ **Path Constants** - Centralized route management
-- ✅ **Toast Notifications** - Beautiful Sonner toasts
 - ✅ **Comprehensive Docs** - Complete documentation for all features
-- ✅ **Example Page** - Live examples of forms & toasts
+- ✅ **Example Routes** - Organized examples at `/example/*`
 
 ---
 
@@ -187,7 +213,13 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 ├── app/                          # Next.js app directory
 │   ├── layout.tsx               # Root layout with providers
 │   ├── page.tsx                 # Home page
-│   ├── example/                 # Example page with forms & toasts
+│   ├── example/                 # Example pages
+│   │   ├── page.tsx             # Examples navigation hub
+│   │   ├── data-table/          # DataTable examples
+│   │   ├── dialog/              # Dialog examples
+│   │   ├── dropdown/            # Dropdown/ActionMenu examples
+│   │   ├── form/                # Form examples
+│   │   └── toast/               # Toast & Tooltip examples
 │   └── globals.css              # Global styles
 │
 ├── components/
@@ -208,6 +240,12 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 │   │   ├── sonner.tsx           # Toast component
 │   │   └── ...
 │   │
+│   ├── ActionMenu.tsx           # Dropdown action menu
+│   ├── CustomTooltip.tsx        # Variant-based tooltips
+│   ├── DataTable.tsx            # Full-featured data table
+│   ├── DialogCreator.tsx        # Dialog component
+│   ├── EmptyState.tsx           # Empty state placeholder
+│   ├── ErrorState.tsx           # Error state placeholder
 │   └── ThemeToggle.tsx          # Dark mode toggle
 │
 ├── stores/                      # Zustand stores
@@ -247,6 +285,7 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 └── docs/                        # Comprehensive documentation
     ├── FORM_SYSTEM_DOCUMENTATION.md
     ├── MODAL_DIALOG_DOCUMENTATION.md
+    ├── TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md
     ├── API_DOCUMENTATION.md
     └── STATE_AND_UTILITIES.md
 ```
@@ -257,17 +296,19 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 
 Comprehensive guides for all features:
 
-| Documentation         | Description                                                                | Link                                              |
-| --------------------- | -------------------------------------------------------------------------- | ------------------------------------------------- |
-| **Form System**       | Complete guide to all 13 form components, input types, validation, theming | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md)  |
-| **Modal/Dialog**      | Dialog system with per-button loading, async handlers, and customization   | [View Docs](./docs/MODAL_DIALOG_DOCUMENTATION.md) |
-| **API & Axios**       | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)          |
-| **State & Utilities** | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)        |
+| Documentation          | Description                                                                | Link                                                      |
+| ---------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
+| **Form System**        | Complete guide to all 13 form components, input types, validation, theming | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md)          |
+| **Modal/Dialog**       | Dialog system with per-button loading, async handlers, and customization   | [View Docs](./docs/MODAL_DIALOG_DOCUMENTATION.md)         |
+| **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus       | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |
+| **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)                  |
+| **State & Utilities**  | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)                |
 
 ### Quick Links
 
 - **🎨 Form Components** - [Form System Documentation](./docs/FORM_SYSTEM_DOCUMENTATION.md)
 - **🎯 Modal/Dialog** - [Modal & Dialog Documentation](./docs/MODAL_DIALOG_DOCUMENTATION.md)
+- **💬 Tooltips & Dropdowns** - [Tooltip & Dropdown Documentation](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md)
 - **🌐 API Calls** - [API Documentation](./docs/API_DOCUMENTATION.md)
 - **🗄️ State Management** - [State & Utilities Documentation](./docs/STATE_AND_UTILITIES.md)
 
@@ -277,24 +318,24 @@ Comprehensive guides for all features:
 
 ### Live Examples
 
-Visit the **[/example](http://localhost:3000/example)** page to see:
+Visit the **[/example](http://localhost:3000/example)** page for the examples hub, with links to:
 
-- ✅ **All Form Components** in action
-  - Text inputs with auto-floating labels
-  - Password inputs with visibility toggle
-  - Shadcn-style OTP with individual character boxes
-  - File uploads (default, avatar, button styles)
-  - Select dropdowns (single & multi-select)
-  - Checkboxes & radio groups
-  - Date & time pickers
-- ✅ **Toast Notifications**
-  - Success, error, info, warning toasts
-  - Promise-based toasts for async operations
-  - Custom toast messages
+| Route                                                               | Description                                            |
+| ------------------------------------------------------------------- | ------------------------------------------------------ |
+| **[/example/data-table](http://localhost:3000/example/data-table)** | DataTable with sorting, selection, actions, pagination |
+| **[/example/dialog](http://localhost:3000/example/dialog)**         | Modal dialogs with async handlers & per-button loading |
+| **[/example/dropdown](http://localhost:3000/example/dropdown)**     | ActionMenu with groups, checkboxes, radios, submenus   |
+| **[/example/form](http://localhost:3000/example/form)**             | All form components - inputs, selects, uploads, OTP    |
+| **[/example/toast](http://localhost:3000/example/toast)**           | Sonner toasts & custom tooltips with variants          |
 
-- ✅ **Dark Mode Toggle**
-  - Seamless theme switching
-  - All components support both themes
+### Feature Highlights
+
+- ✅ **DataTable** - Sorting, pagination, row selection, actions column
+- ✅ **Tooltips** - Info, success, warning, error variants with sizes
+- ✅ **Dropdown Menus** - Groups, checkboxes, radios, keyboard shortcuts
+- ✅ **Form Components** - Floating labels, OTP, file uploads, validation
+- ✅ **Toast Notifications** - Promise-based, multiple types
+- ✅ **Dark Mode** - All components support both themes
 
 ### Code Examples
 

@@ -15,7 +15,7 @@ import type { DialogConfig } from "@/types/dialog";
  * - Advanced configurations and customizations
  *
  * NOTE: For standalone DialogCreator examples (without any hook),
- * see examples/standalone-dialog.tsx
+ * see examples/dialog/standalone.tsx
  */
 export default function DialogExamples() {
   // ============================================================

